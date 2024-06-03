@@ -1,3 +1,16 @@
+# display warning message
+#
+clear
+echo -e "WARNING: This will erase all the current state of your project files.\nAre you SURE you want to continue regen everything? (y/n)\n\n"
+read -n 1 answer
+
+if [[ "$answer" == "n" || "$answer" == "N" ]]; then
+    echo -e "\nExiting..."
+    exit
+else
+    echo -e "\nBuild script initiated by user..."
+fi
+
 # clean repo
 #
 echo -e "\ncleaning repo..."
@@ -36,3 +49,5 @@ echo -e "\nbuild.log summary: \n"
 echo "total errors: "; cat build.log | grep error -i | wc -l
 echo "total warnings: "; cat build.log | grep warning -i | wc -l
 echo -e "\nerror details: \n"; cat build.log | grep error -i -B1
+
+echo -e "\ndone."

@@ -1,0 +1,24 @@
+[vpc crc file version 2]
+0a0a6390 ../../devtools/bin/vpc_linux
+_Nc_/vpcgame:valve_
+9136fbf3 server_tf.vpc
+f20df8e7 ../../game/server/server_base.vpc
+4832e67a ../../vpc_scripts/source_dll_base.vpc
+d752cf80 ../../vpc_scripts/platform_dirs.vpc
+6c4a5ff1 ../../vpc_scripts/source_base.vpc
+addfdd1d ../../vpc_scripts/source_dll_posix_base.vpc
+486b766d ../../vpc_scripts/version.vpc
+26cc1549 ../../vpc_scripts/source_posix_base.vpc
+15cd25e0 ../../vpc_scripts/source_video_base.vpc
+37ec58e4 ../../vpc_scripts/protobuf_builder.vpc
+3f990af0 ../../vpc_scripts/source_replay.vpc
+138911e1 ../../vpc_scripts/source_replay_private.vpc
+e733fb10 ../../game/protobuf_include.vpc
+504a9718 ../../game/server/server_econ_base.vpc
+fbc88aef ../../gcsdk/gcsdk_game_include.vpc
+8e467f9d ../../gcsdk/steammessages_include.vpc
+91e857ac ../../game/shared/base_gcmessages_include.vpc
+f8cf6deb ../../game/shared/econ_gcmessages_include.vpc
+a9ff7058 ../../vpc_scripts/source_cryptlib_include.vpc
+59ed9584 ../../game/shared/tf/tf_gcmessages_include.vpc
+47474ca5 ../../game/server/nav_mesh.vpc

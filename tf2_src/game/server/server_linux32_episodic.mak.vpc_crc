@@ -1,0 +1,14 @@
+[vpc crc file version 2]
+0a0a6390 ../../devtools/bin/vpc_linux
+_Nc_/vpcgame:valve_
+967a1a19 server_episodic.vpc
+f20df8e7 ../../game/server/server_base.vpc
+4832e67a ../../vpc_scripts/source_dll_base.vpc
+d752cf80 ../../vpc_scripts/platform_dirs.vpc
+6c4a5ff1 ../../vpc_scripts/source_base.vpc
+addfdd1d ../../vpc_scripts/source_dll_posix_base.vpc
+486b766d ../../vpc_scripts/version.vpc
+26cc1549 ../../vpc_scripts/source_posix_base.vpc
+15cd25e0 ../../vpc_scripts/source_video_base.vpc
+37ec58e4 ../../vpc_scripts/protobuf_builder.vpc
+e733fb10 ../../game/protobuf_include.vpc
