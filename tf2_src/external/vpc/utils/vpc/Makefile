@@ -70,7 +70,6 @@ VPC_SRC:= \
 
 TIER0_SRC:= \
 	../../tier0/assert_dialog.cpp \
-	../../tier0/cpu_posix.cpp \
 	../../tier0/cpu.cpp \
 	../../tier0/dbg.cpp \
 	../../tier0/fasttimer.cpp \
@@ -101,7 +100,6 @@ TIER1_SRC:= \
 
 VSTDLIB_SRC:= \
 	../../vstdlib/cvar.cpp \
-	../../vstdlib/vstrtools.cpp \
 	../../vstdlib/random.cpp
 
 

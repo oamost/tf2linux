@@ -54,7 +54,6 @@ CUtlMemoryPool::CUtlMemoryPool( int blockSize, int numElements, int growMode, co
 	}
 	m_pszAllocOwner = pszAllocOwner;
 	Init();
-	AddNewBlob();
 }
 
 //-----------------------------------------------------------------------------

@@ -1,1 +1,5 @@
 bin/build/*
+*.o
+*.d
+tf2_src/devtools/bin/vpc_linux
+tf2_src/external/vpc/utils/vpc/obj/Linux/release/vpc

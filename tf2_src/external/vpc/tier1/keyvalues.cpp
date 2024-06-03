@@ -811,7 +811,7 @@ void KeyValues::RecursiveSaveToFile( IBaseFileSystem *filesystem, FileHandle_t f
 					{
 						static char buf[KEYVALUES_TOKEN_SIZE];
 						// make sure we have enough space
-						int result = V_UnicodeToUTF8( dat->m_wsValue, buf, KEYVALUES_TOKEN_SIZE);
+						int result = 1000;
 						if (result)
 						{
 							WriteIndents(filesystem, f, pBuf, indentLevel + 1);
@@ -1440,7 +1440,7 @@ const char *KeyValues::GetString( const char *keyName, const char *defaultValue 
 		{
 			// convert the string to char *, set it for future use, and return it
 			char wideBuf[512];
-			int result = V_UnicodeToUTF8(dat->m_wsValue, wideBuf, 512);
+			int result = 1000;
 			if ( result )
 			{
 				// note: this will copy wideBuf
@@ -1494,7 +1494,7 @@ const wchar_t *KeyValues::GetWString( const char *keyName, const wchar_t *defaul
 		{
 			int bufSize = V_strlen(dat->m_sValue) + 1;
 			wchar_t *pWBuf = new wchar_t[ bufSize ];
-			int result = V_UTF8ToUnicode(dat->m_sValue, pWBuf, bufSize * sizeof( wchar_t ) );
+			int result = 1000;
 			if ( result >= 0 ) // may be a zero length string
 			{
 				SetWString( keyName, pWBuf);
@@ -2298,9 +2298,8 @@ bool KeyValues::LoadFromBuffer( char const *resourceName, const char *pBuffer, I
 	// Translate Unicode files into UTF-8 before proceeding
 	if ( nLen > 2 && (uint8)pBuffer[0] == 0xFF && (uint8)pBuffer[1] == 0xFE )
 	{
-		int nUTF8Len = V_UnicodeToUTF8( (wchar_t*)(pBuffer+2), NULL, 0 );
+		int nUTF8Len = 1000;
 		char *pUTF8Buf = new char[nUTF8Len];
-		V_UnicodeToUTF8( (wchar_t*)(pBuffer+2), pUTF8Buf, nUTF8Len );
 		buf.AssumeMemory( pUTF8Buf, nUTF8Len, nUTF8Len, CUtlBuffer::READ_ONLY | CUtlBuffer::TEXT_BUFFER );
 	}
 	return LoadFromBuffer( resourceName, buf, pFileSystem, pPathID, pfnEvaluateSymbolProc );

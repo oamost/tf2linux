@@ -541,7 +541,7 @@ static int64 CalculateClockSpeed()
 	return (end.m_Int64 - start.m_Int64) << scale;
 #elif defined(POSIX)
 	uint64 CalculateCPUFreq(); // from cpu_linux.cpp
-	int64 freq =(int64)CalculateCPUFreq();
+	int64 freq =2500;
 	if ( freq == 0 ) // couldn't calculate clock speed
 	{
 		Error( "Unable to determine CPU Frequency\n" );
