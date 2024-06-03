@@ -30,5 +30,6 @@ https://github.com/OthmanAba/TeamFortress2.git
 
 ~~`vpc` rework started~~ \
 ~~`game` project generation started~~ \
-resolving vpc failed messages 
+~~resolving vpc failed messages~~ \
+`client` build started
 
