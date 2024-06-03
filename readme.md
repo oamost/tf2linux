@@ -29,5 +29,6 @@ https://github.com/OthmanAba/TeamFortress2.git
 ### status
 
 ~~`vpc` rework started~~ \
-`game` project generation started
+~~`game` project generation started~~ \
+resolving vpc failed messages 
 
