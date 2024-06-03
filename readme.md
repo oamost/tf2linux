@@ -1,9 +1,17 @@
-### project structure
+|                |                                                                               |
+|-----------------------------------|----------------------------------------------------------------------------------------------|
+| **tf2linux**                      | project root                                                                                 |
+| ├── **build.log**                 | text file containing latest `projgen` run results                                            |
+| ├── **`projgen.sh`**              | script for building vpc and generating projects from scratch                                 |
+| ├── **game**                      | binary root                                                                                  |
+| │  &emsp; ├── **build**                 | build output that will be copied into `pre_jungleinferno_demos`                              |
+| │  &emsp; └── **tf**                    | tf2 root                                                                                     |
+| │       &emsp;&emsp;&emsp;├── **pre_jungleinferno_demos** | `cp -R ~/.local/share/Steam/steamapps/common/Team\ Fortress\ 2 ~/tf2linux/game/tf/pre_jungleinferno_demos`|
+| │       &emsp;&emsp;&emsp;├── **resource**          | vpc dependencies                                                                             |
+| │       &emsp;&emsp;&emsp;└── **scripts**           | vpc dependencies                                                                             |
+| ├── **readme.md**                 | this documentation                                                                           |
+| └── **tf2_src**                   | source code                                                                                  |
 
-**tf2linux** \
-**├── readme.md**&emsp;&emsp; \
-**├── bin**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;download location of tf2's `pre_jungleinferno_demos` beta option obtainable with steam client \
-**└── tf2_src**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; source dir for building binaries into **./bin/build**
 
 ### scope
 
