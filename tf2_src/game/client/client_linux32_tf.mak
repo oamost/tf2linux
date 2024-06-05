@@ -10,7 +10,7 @@ USE_VALVE_BINDIR=0
 PWD:=$(shell $(TOOL_PATH)pwd)
 # If no configuration is specified, "release" will be used.
 ifeq "$(CFG)" ""
-	CFG = release
+	CFG = debug
 endif
 
 #

@@ -118,32 +118,6 @@ COPY_DLL_TO_SRV = 0
 # http://linux.die.net/man/1/ld and http://fedoraproject.org/wiki/Releases/FeatureBuildId.http://fedoraproject.org/wiki/Releases/FeatureBuildId
 LDFLAGS += -Wl,--build-id
 
-#
-# If we should be running in a chroot, check to see if we are. If not, then prefix everything with the 
-# required chroot
-#
-ifdef MAKE_CHROOT
-	export STEAM_RUNTIME_PATH := /usr
-	ifneq ("$(SCHROOT_CHROOT_NAME)", "$(CHROOT_NAME)")
-        $(info '$(SCHROOT_CHROOT_NAME)' is not '$(CHROOT_NAME)')
-        $(error This makefile should be run from within a chroot. 'schroot --chroot $(CHROOT_NAME) -- $(MAKE) $(MAKEFLAGS)')  
-	endif
-	GCC_VER = -4.8
-	P4BIN = $(tf2linux)/tf2_src/devtools/bin/linux/p4
-	CRYPTOPPDIR=ubuntu12_32_gcc48
-else ifeq ($(USE_VALVE_BINDIR),1)
-	# Using /valve/bin directory.
-	export STEAM_RUNTIME_PATH ?= /valve
-	GCC_VER = -4.6
-	P4BIN = $(tf2linux)/tf2_src/devtools/bin/linux/p4
-	CRYPTOPPDIR=linux32
-else
-	# Not using chroot, use old steam-runtime. (gcc 4.6.3)
-	export STEAM_RUNTIME_PATH ?= /valve/steam-runtime
-	GCC_VER =
-	P4BIN = $(tf2linux)/tf2_src/devtools/bin/linux/p4
-	CRYPTOPPDIR=ubuntu12_32
-endif
 
 ifeq ($(TARGET_PLATFORM),linux64)
 	MARCH_TARGET = core2
@@ -415,35 +389,6 @@ else
 		CCACHE_EXTRAFILES=$@.defines $(PCH_CXX) $(PCH_FINAL_CXXFLAGS) -x c++-header -o $@ -c $<
 endif
 
-ifneq "$(origin VALVE_NO_AUTO_P4)" "undefined"
-	P4_EDIT_START = chmod -R +w
-	P4_EDIT_END = || true
-	P4_REVERT_START = true
-	P4_REVERT_END =
-else
-	# You can use an environment variable to specify what changelist to check the Linux Binaries out into. Normally the default
-	# setting is best, but here is an alternate example:
-	# export P4_EDIT_CHANGELIST_CMD="echo 1424335"
-	# ?= means that if P4_EDIT_CHANGELIST_CMD is already set it won't be changed.
-	P4_EDIT_CHANGELIST_CMD ?= $(P4BIN) changes -c `$(P4BIN) client -o | grep ^Client | cut -f 2` -s pending | fgrep 'POSIX Auto Checkout' | cut -d' ' -f 2 | tail -n 1
-	ifndef P4_EDIT_CHANGELIST
-		P4_EDIT_CHANGELIST := $(shell $(P4_EDIT_CHANGELIST_CMD))
-	endif
-	ifeq ($(P4_EDIT_CHANGELIST),)
-		# If we haven't found a changelist to check out to then create one. The name must match the one from a few
-		# lines above or else a new changelist will be created each time.
-		# Warning: the behavior of 'echo' is not consistent. In bash you need the "-e" option in order for \n to be
-		# interpreted as a line-feed, but in dash you do not, and if "-e" is passed along then it is printed, which
-		# confuses p4. So, if you run this command from the bash shell don't forget to add "-e" to the echo command.
-		P4_EDIT_CHANGELIST = $(shell /bin/echo -e "Change: new\nDescription: POSIX Auto Checkout" | $(P4BIN) change -i | cut -f 2 -d ' ')
-	endif
-
-	P4_EDIT_START := for f in
-	P4_EDIT_END := ; do if [ -n $$f ]; then if [ -d $$f ]; then find $$f -type f -print | $(P4BIN) -x - edit -c $(P4_EDIT_CHANGELIST); else $(P4BIN) edit -c $(P4_EDIT_CHANGELIST) $$f; fi; fi; done $(QUIET_ECHO_POSTFIX)
-	P4_REVERT_START := for f in  
-	P4_REVERT_END := ; do if [ -n $$f ]; then if [ -d $$f ]; then find $$f -type f -print | $(P4BIN) -x - revert; else $(P4BIN) revert $$f; fi; fi; done $(QUIET_ECHO_POSTFIX) 
-endif
-
 ifneq "$(GAMEOUTPUTFILE)" ""
 all: $(OTHER_DEPENDENCIES) $(OBJS) $(GAMEOUTPUTFILE)
 	@echo $(GAMEOUTPUTFILE) $(QUIET_ECHO_POSTFIX)
@@ -455,8 +400,7 @@ endif
 .PHONY: clean cleantargets cleanandremove rebuild relink RemoveOutputFile SingleFile
 
 
-rebuild :
-	$(MAKE) -f $(firstword $(MAKEFILE_LIST)) cleanandremove
+rebuild:
 	$(MAKE) -f $(firstword $(MAKEFILE_LIST))
 
 
@@ -465,141 +409,6 @@ relink: RemoveOutputFile all
 
 RemoveOutputFile:
 	rm -f $(OUTPUTFILE)
-
-
-# This rule is so you can say "make SingleFile SingleFilename=/home/myname/valve_main/src/engine/language.cpp" and have it only build that file.
-# It basically just translates the full filename to create a dependency on the appropriate .o file so it'll build that.
-SingleFile : RemoveSingleFile $(OBJ_DIR)/$(basename $(notdir $(SingleFilename))).o
-	@echo ""
-
-RemoveSingleFile:
-	$(QUIET_PREFIX) rm -f $(OBJ_DIR)/$(basename $(notdir $(SingleFilename))).o
-
-clean:
-ifneq "$(OBJ_DIR)" ""
-	$(QUIET_PREFIX) echo "rm -rf $(OBJ_DIR)"
-	$(QUIET_PREFIX) rm -rf $(OBJ_DIR)
-endif
-ifneq "$(OUTPUTFILE)" ""
-	$(QUIET_PREFIX) if [ -e $(OUTPUTFILE) ]; then \
-		echo "$(P4BIN) revert $(OUTPUTFILE)"; \
-		$(P4_REVERT_START) $(OUTPUTFILE) $(OUTPUTFILE)$(SYM_EXT) $(P4_REVERT_END); \
-	fi;
-endif
-ifneq "$(OTHER_DEPENDENCIES)" ""
-	$(QUIET_PREFIX) echo "rm -f $(OTHER_DEPENDENCIES)"
-	$(QUIET_PREFIX) rm -f $(OTHER_DEPENDENCIES)
-endif
-ifneq "$(GAMEOUTPUTFILE)" ""
-	$(QUIET_PREFIX) echo "$(P4BIN) revert $(GAMEOUTPUTFILE)"
-	$(QUIET_PREFIX) $(P4_REVERT_START) $(GAMEOUTPUTFILE) $(GAMEOUTPUTFILE)$(SYM_EXT) $(P4_REVERT_END)
-endif
-
-
-# Do the above cleaning, except with p4 edit and rm. Reason being ar crs adds and replaces obj files to the
-# archive. However if you've renamed or deleted a source file, $(AR) won't remove it. This can leave
-# us with archive files that have extra unused symbols, and also potentially cause compilation errors
-# when you rename a file and have many duplicate symbols.
-cleanandremove:
-ifneq "$(OBJ_DIR)" ""
-	$(QUIET_PREFIX) echo "rm -rf $(OBJ_DIR)"
-	$(QUIET_PREFIX) -rm -rf $(OBJ_DIR)
-endif
-ifneq "$(OUTPUTFILE)" ""
-	$(QUIET_PREFIX) if [ -e $(OUTPUTFILE) ]; then \
-		echo "$(P4BIN) edit and rm -f $(OUTPUTFILE) $(OUTPUTFILE)$(SYM_EXT)"; \
-		$(P4_EDIT_START) $(OUTPUTFILE) $(OUTPUTFILE)$(SYM_EXT) $(P4_EDIT_END); \
-	fi;
-	$(QUIET_PREFIX) -rm -f $(OUTPUTFILE) $(OUTPUTFILE)$(SYM_EXT);
-endif
-ifneq "$(OTHER_DEPENDENCIES)" ""
-	$(QUIET_PREFIX) echo "rm -f $(OTHER_DEPENDENCIES)"
-	$(QUIET_PREFIX) -rm -f $(OTHER_DEPENDENCIES)
-endif
-ifneq "$(GAMEOUTPUTFILE)" ""
-	$(QUIET_PREFIX) echo "$(P4BIN) edit and rm -f $(GAMEOUTPUTFILE) $(GAMEOUTPUTFILE)$(SYM_EXT)"
-	$(QUIET_PREFIX) $(P4_EDIT_START) $(GAMEOUTPUTFILE) $(GAMEOUTPUTFILE)$(SYM_EXT) $(P4_EDIT_END)
-	$(QUIET_PREFIX) -rm -f $(GAMEOUTPUTFILE)
-endif
-
-
-# This just reverts the final targets so it'll do a relink next time we build.
-cleantargets:
-ifneq "$(GAMEOUTPUTFILE)" ""
-	$(QUIET_PREFIX) echo "$(P4BIN) revert $(GAMEOUTPUTFILE)"
-	$(QUIET_PREFIX) $(P4_REVERT_START) $(GAMEOUTPUTFILE) $(GAMEOUTPUTFILE)$(SYM_EXT) $(P4_REVERT_END)
-endif
-ifneq "$(OUTPUTFILE)" ""
-	$(QUIET_PREFIX) echo "$(P4BIN) revert $(OUTPUTFILE)"
-	$(QUIET_PREFIX) $(P4_REVERT_START) $(OUTPUTFILE) $(OUTPUTFILE)$(SYM_EXT) $(P4_REVERT_END)
-endif
-
-$(LIB_File): $(OTHER_DEPENDENCIES) $(OBJS) 
-	$(QUIET_PREFIX) -$(P4_EDIT_START) $(LIB_File) $(P4_EDIT_END); 
-	$(QUIET_PREFIX) $(AR) $(LIB_File) $(OBJS) $(LIBFILES);
-	$(SHELL) -c "$(POSTBUILDCOMMAND)"
-
-SO_GameOutputFile = $(GAMEOUTPUTFILE)
-
-# Remove the target before installing a file over it; this prevents existing
-# instances of the game from crashing due to the overwrite.
-$(GAMEOUTPUTFILE): $(OUTPUTFILE)
-	$(QUIET_PREFIX) \
-	$(P4_EDIT_START) $(GAMEOUTPUTFILE) $(P4_EDIT_END) && \
-	echo "----" $(QUIET_ECHO_POSTFIX);\
-	echo "---- COPYING TO $@ [$(CFG)] ----";\
-	echo "----" $(QUIET_ECHO_POSTFIX);
-	$(QUIET_PREFIX) -$(P4_EDIT_START) $(GAMEOUTPUTFILE) $(P4_EDIT_END);
-	$(QUIET_PREFIX) -mkdir -p `dirname $(GAMEOUTPUTFILE)` > /dev/null;
-	$(QUIET_PREFIX) rm -f $(GAMEOUTPUTFILE) $(QUIET_ECHO_POSTFIX);
-	$(QUIET_PREFIX) cp -v $(OUTPUTFILE) $(GAMEOUTPUTFILE) $(QUIET_ECHO_POSTFIX);
-	$(QUIET_PREFIX) -$(P4_EDIT_START) $(GAMEOUTPUTFILE)$(SYM_EXT) $(P4_EDIT_END);
-	$(QUIET_PREFIX) $(GEN_SYM) $(GAMEOUTPUTFILE); 
-	$(QUIET_PREFIX) -$(STRIP) $(GAMEOUTPUTFILE);
-	$(QUIET_PREFIX) $(VSIGN) -signvalve $(GAMEOUTPUTFILE);
-	$(QUIET_PREFIX) if [ "$(COPY_DLL_TO_SRV)" = "1" ]; then\
-		echo "----" $(QUIET_ECHO_POSTFIX);\
-		echo "---- COPYING TO $(Srv_GAMEOUTPUTFILE) ----";\
-		echo "----" $(QUIET_ECHO_POSTFIX);\
-		cp -v $(GAMEOUTPUTFILE) $(Srv_GAMEOUTPUTFILE) $(QUIET_ECHO_POSTFIX);\
-		cp -v $(GAMEOUTPUTFILE)$(SYM_EXT) $(Srv_GAMEOUTPUTFILE)$(SYM_EXT) $(QUIET_ECHO_POSTFIX);\
-	fi;
-	$(QUIET_PREFIX) if [ "$(IMPORTLIBRARY)" != "" ]; then\
-		echo "----" $(QUIET_ECHO_POSTFIX);\
-		echo "---- COPYING TO IMPORT LIBRARY $(IMPORTLIBRARY) ----";\
-		echo "----" $(QUIET_ECHO_POSTFIX);\
-		$(P4_EDIT_START) $(IMPORTLIBRARY) $(P4_EDIT_END) && \
-		mkdir -p `dirname $(IMPORTLIBRARY)` > /dev/null && \
-		cp -v $(OUTPUTFILE) $(IMPORTLIBRARY); \
-	fi;
-
-
-$(SO_File): $(OTHER_DEPENDENCIES) $(OBJS) $(LIBFILENAMES)
-	$(QUIET_PREFIX) \
-	echo "----" $(QUIET_ECHO_POSTFIX);\
-	echo "---- LINKING $@ [$(CFG)] ----";\
-	echo "----" $(QUIET_ECHO_POSTFIX);\
-	\
-	$(LINK) $(LINK_MAP_FLAGS) $(SHLIBLDFLAGS) $(PROFILE_LINKER_FLAG) -o $(OUTPUTFILE) $(LIB_START_SHLIB) $(OBJS) $(LIBFILES) $(SystemLibraries) $(LIB_END_SHLIB);
-	$(QUIET_PREFIX) $(VSIGN) -signvalve $(OUTPUTFILE);
-	$(QUIET_PREFIX) $(SHELL) -c "$(POSTBUILDCOMMAND)"
-
-
-
-$(EXE_File) : $(OTHER_DEPENDENCIES) $(OBJS) $(LIBFILENAMES)
-	$(QUIET_PREFIX) \
-	echo "----" $(QUIET_ECHO_POSTFIX);\
-	echo "---- LINKING EXE $@ [$(CFG)] ----";\
-	echo "----" $(QUIET_ECHO_POSTFIX);\
-	\
-	$(P4_EDIT_START) $(OUTPUTFILE) $(P4_EDIT_END);\
-	$(LINK) $(LINK_MAP_FLAGS) $(LDFLAGS) $(PROFILE_LINKER_FLAG) -o $(OUTPUTFILE) $(LIB_START_EXE) $(OBJS) $(LIBFILES) $(SystemLibraries) $(LIB_END_EXE);
-	$(QUIET_PREFIX) -$(P4_EDIT_START) $(OUTPUTFILE)$(SYM_EXT) $(P4_EDIT_END);
-	$(QUIET_PREFIX) $(GEN_SYM) $(OUTPUTFILE);
-	$(QUIET_PREFIX) -$(STRIP) $(OUTPUTFILE);
-	$(QUIET_PREFIX) $(VSIGN) -signvalve $(OUTPUTFILE);
-	$(QUIET_PREFIX) $(SHELL) -c "$(POSTBUILDCOMMAND)"
-
 
 tags:
 	etags -a -C -o $(SRCROOT)/TAGS *.cpp *.cxx *.h *.hxx
