@@ -5,5 +5,7 @@ tf2_src/devtools/bin/vpc_linux
 tf2_src/external/vpc/utils/vpc/obj/Linux/release/vpc
 !tf2_src/thirdparty/protobuf-2.6.1.tar.gz
 tf2_src/thirdparty/protobuf-2.6.1
+tf2_src/game/client/generated_proto_tf
+tf2_src/game/client/obj_client_tf_linux32
 projgen.log
 protobuf.log
