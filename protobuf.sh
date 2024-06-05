@@ -4,7 +4,7 @@ cd tf2_src/thirdparty
 
 # extracting package
 #
-gzip -d protobuf-2.6.1.tar.gz && tar -xf protobuf-2.6.1.tar
+gzip -dk protobuf-2.6.1.tar.gz && tar -xf protobuf-2.6.1.tar
 rm protobuf-2.6.1.tar
 cd protobuf-2.6.1
 

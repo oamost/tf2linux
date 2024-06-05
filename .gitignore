@@ -3,6 +3,6 @@ bin/build/*
 *.d
 tf2_src/devtools/bin/vpc_linux
 tf2_src/external/vpc/utils/vpc/obj/Linux/release/vpc
-tf2_src/thirdparty/protobuf-2.6.1-src
+tf2_src/thirdparty/protobuf-2.6.1/*
 build.log
 protobuf.log
