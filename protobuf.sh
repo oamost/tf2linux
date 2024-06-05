@@ -36,13 +36,11 @@ else
     echo "success - build passed - all tests passed"
 fi
 
-# clean up
+# copy executable to target location
 #
-mkdir -p ../tmp/bin/linux32/out
-cp src/.libs/* ../tmp/bin/linux32/out
+mkdir -p ../protobuf-2.6.1/bin/linux32/out
+cp src/.libs/* ../protobuf-2.6.1/bin/linux32/out
 cd ..
-rm -rf protobuf-2.6.1
-mv tmp protobuf-2.6.1
 
 cp /usr/local/bin/protoc protobuf-2.6.1/bin/linux32
 
