@@ -1,4 +1,4 @@
-//====== Copyright © 1996-2004, Valve Corporation, All rights reserved. =======
+//====== Copyright ï¿½ 1996-2004, Valve Corporation, All rights reserved. =======
 //
 // Purpose: 
 //
@@ -379,8 +379,12 @@ public:
 		VPROF_BUDGET( "CProtoBufMsg::CProtoBufMsg( MsgType_t, CSteamID, int32 )", VPROF_BUDGETGROUP_OTHER_NETWORKING );
 
 		m_pProtoBufBody = AllocProto();
-		Hdr()->set_client_steam_id( steamIDClient.ConvertToUint64() );
-		Hdr()->set_client_session_id( nSessionIDClient );
+
+		auto hdr1 = Hdr();
+		auto hdr2 = Hdr();
+
+		hdr1.set_client_steam_id( steamIDClient.ConvertToUint64() );
+		hdr2.set_client_session_id( nSessionIDClient );
 	}
 
 	// Constructor from an incoming netpacket
