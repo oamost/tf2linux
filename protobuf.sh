@@ -6,6 +6,7 @@ cd tf2_src/thirdparty
 #
 gzip -dk protobuf-2.6.1.tar.gz && tar -xf protobuf-2.6.1.tar
 rm protobuf-2.6.1.tar
+
 cd protobuf-2.6.1
 
 # building package
@@ -33,6 +34,14 @@ if [[ "$failed1" -gt 0 ]] || [[ "$failed2" -gt 0 ]]; then
 else
     echo "success - build passed - all tests passed"
 fi
+
+# clean up
+#
+mkdir -p ../tmp/bin/linux32
+cp src/.libs/* ../tmp/bin/linux32
+cd ..
+rm -rf protobuf-2.6.1
+mv tmp protobuf-2.6.1
 
 
 
