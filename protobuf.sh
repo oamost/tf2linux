@@ -1,26 +1,20 @@
 # entering thirdparty dir
 #
-echo "changing dir..."
 cd tf2_src/thirdparty
 
 # extracting package
 #
 gzip -d protobuf-2.6.1.tar.gz && tar -xf protobuf-2.6.1.tar
-
 rm protobuf-2.6.1.tar
-mv protobuf-2.6.1 protobuf-2.6.1-src
-mkdir protobuf-2.6.1
-
-cd protobuf-2.6.1-src
+cd protobuf-2.6.1
 
 # building package
 #
-echo "building protobuf-2.6.1 - please wait..."
-
 ./autogen.sh
 ./configure
 
-make > /dev/null
+make clean
+make
 
 # build log
 #
@@ -29,16 +23,16 @@ date > ../../../protobuf.log
 
 make check | grep testsuite\ summary -A7 -i >> ../../../protobuf.log
 
-echo "finished..."
-
 # inform about results
 #
-failed1 = $(cat ../../../protobuf.log | grep xfail -i | awk '{print $2}')
-failed2 = $(cat ../../../protobuf.log | grep fail -i | awk '{print $2}')
+failed1=$(grep -i 'XFAIL' ../../../protobuf.log | awk '{print $2}' | tr -cd '[:digit:]')
+failed2=$(grep -i 'FAIL' ../../../protobuf.log | awk '{print $2}' | tr -cd '[:digit:]')
 
-if [ "$failed1" -ne 0 ] || [ "$failed2" -ne 0 ]; then
+if [[ "$failed1" -gt 0 ]] || [[ "$failed2" -gt 0 ]]; then
     echo "failed - see protobuf.log for details"
 else
-    echo "success"
+    echo "success - build passed - all tests passed"
+fi
+
 
 
