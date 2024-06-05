@@ -13,6 +13,7 @@
 #  @	command is not printed to stdout before being executed
 #  +	command is executed even if Make is invoked in "do not exec" mode
 
+tf2linux := $(shell pwd)/../../..
 
 ifneq "$(LINUX_TOOLS_PATH)" ""
 TOOL_PATH = $(LINUX_TOOLS_PATH)/
@@ -128,19 +129,19 @@ ifdef MAKE_CHROOT
         $(error This makefile should be run from within a chroot. 'schroot --chroot $(CHROOT_NAME) -- $(MAKE) $(MAKEFLAGS)')  
 	endif
 	GCC_VER = -4.8
-	P4BIN = $(SRCROOT)/devtools/bin/linux/p4
+	P4BIN = $(tf2linux)/tf2_src/devtools/bin/linux/p4
 	CRYPTOPPDIR=ubuntu12_32_gcc48
 else ifeq ($(USE_VALVE_BINDIR),1)
 	# Using /valve/bin directory.
 	export STEAM_RUNTIME_PATH ?= /valve
 	GCC_VER = -4.6
-	P4BIN = p4
+	P4BIN = $(tf2linux)/tf2_src/devtools/bin/linux/p4
 	CRYPTOPPDIR=linux32
 else
 	# Not using chroot, use old steam-runtime. (gcc 4.6.3)
 	export STEAM_RUNTIME_PATH ?= /valve/steam-runtime
 	GCC_VER =
-	P4BIN = p4
+	P4BIN = $(tf2linux)/tf2_src/devtools/bin/linux/p4
 	CRYPTOPPDIR=ubuntu12_32
 endif
 
@@ -181,16 +182,10 @@ ifeq ($(CLANG_BUILD),1)
 	export CCACHE_CPP2 = 1
 endif
 
-# If not specified by environment, use steam runtime compilers + in-tree ccache
-ifneq ($(filter default undefined,$(origin AR)),)
-	AR = $(STEAM_RUNTIME_PATH)/bin/ar crs
-endif
-ifneq ($(filter default undefined,$(origin CC)),)
-	CC = $(CCACHE) $(STEAM_RUNTIME_PATH)/bin/gcc$(GCC_VER)
-endif
-ifneq ($(filter default undefined,$(origin CXX)),)
-	CXX = $(CCACHE) $(STEAM_RUNTIME_PATH)/bin/g++$(GCC_VER)
-endif
+
+AR = /usr/bin/ar
+CC = /usr/bin/gcc
+CXX = /usr/bin/g++
 
 LINK ?= $(CC)
 
