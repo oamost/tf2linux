@@ -16,6 +16,7 @@ cd protobuf-2.6.1
 
 make clean
 make
+sudo make install
 
 # build log
 #
@@ -37,11 +38,12 @@ fi
 
 # clean up
 #
-mkdir -p ../tmp/bin/linux32
-cp src/.libs/* ../tmp/bin/linux32
+mkdir -p ../tmp/bin/linux32/out
+cp src/.libs/* ../tmp/bin/linux32/out
 cd ..
 rm -rf protobuf-2.6.1
 mv tmp protobuf-2.6.1
 
+cp /usr/local/bin/protoc protobuf-2.6.1/bin/linux32
 
 

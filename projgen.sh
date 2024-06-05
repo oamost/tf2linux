@@ -18,9 +18,9 @@ git clean -dfx >> /dev/null
 
 # clear log for registering current build log
 #
-echo "cleaning log file..."
-touch build.log
-> build.log 
+echo "clearing log file..."
+touch projgen.log
+> projgen.log 
 
 # build vpc projgen
 #
@@ -33,10 +33,10 @@ echo "entering vpc directory..."
 cd tf2_src/devtools/bin
 
 echo "launching vpc to generate projects..."
-./vpc_linux /v +launcher >> ../../../build.log
-./vpc_linux /v +launcher_main >> ../../../build.log
-./vpc_linux /v +engine >> ../../../build.log
-./vpc_linux /v +gamedlls /allgames >> ../../../build.log
+./vpc_linux /v +launcher >> ../../../projgen.log
+./vpc_linux /v +launcher_main >> ../../../projgen.log
+./vpc_linux /v +engine >> ../../../projgen.log
+./vpc_linux /v +gamedlls /allgames >> ../../../projgen.log
 
 echo -e "\nfinished generating projects..."
 echo "leaving vpc directory..."
@@ -45,9 +45,9 @@ cd ../../../
 
 # projgen summary: 
 #
-echo -e "\nbuild.log summary: \n"
-echo "total errors: "; cat build.log | grep error -i | wc -l
-echo "total warnings: "; cat build.log | grep warning -i | wc -l
-echo -e "\nerror details: \n"; cat build.log | grep error -i -B1
+echo -e "\nprojgen.log summary: \n"
+echo "total errors: "; cat projgen.log | grep error -i | wc -l
+echo "total warnings: "; cat projgen.log | grep warning -i | wc -l
+echo -e "\nerror details: \n"; cat projgen.log | grep error -i -B1
 
 echo -e "\ndone."
