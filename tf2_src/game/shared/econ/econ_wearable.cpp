@@ -511,14 +511,8 @@ public:
 			}
 
 			if ( pScriptItem && pScriptItem->IsValid() )
-			{
-				const bool bAltColor = pEntity && pEntity->GetTeam() > 0
-									 ? pEntity->GetTeam()->GetTeamNumber() == TF_TEAM_BLUE
-									 : pScriptItem->GetFlags() & kEconItemFlagClient_ForceBlueTeam
-									 ? true
-									 : false;
-
-				int iModifiedRGB = pScriptItem->GetModifiedRGBValue( bAltColor );
+			{				
+				int iModifiedRGB = pScriptItem->GetModifiedRGBValue( false );
 				if ( iModifiedRGB )
 				{
 					// The attrib returns a packed RGB with values between 0 & 255 packed into the bottom 3 bytes.

@@ -17,11 +17,6 @@
 #include "c_baseobject.h"
 #include "IGameUIFuncs.h" // for key bindings
 #include "inputsystem/iinputsystem.h"
-
-#ifdef SIXENSE
-#include "sixense/in_sixense.h"
-#endif
-
 #include "tf_hud_menu_taunt_selection.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -227,10 +222,6 @@ int	CHudMenuTauntSelection::HudElementKeyInput( int down, ButtonCode_t keynum, c
 	else
 	{
 		int iSlot = -1;
-
-#ifdef SIXENSE
-		if ( !g_pSixenseInput->IsEnabled() )
-#endif
 		{
 			// convert slot1, slot2 etc to 1,2,3,4
 			if ( pszCurrentBinding && !Q_strncmp( pszCurrentBinding, "slot", 4 ) && Q_strlen(pszCurrentBinding) > 4 )

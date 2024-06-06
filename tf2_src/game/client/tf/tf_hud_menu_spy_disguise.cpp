@@ -16,11 +16,6 @@
 #include <vgui/IVGui.h>
 #include "c_baseobject.h"
 #include "inputsystem/iinputsystem.h"
-
-#ifdef SIXENSE
-#include "sixense/in_sixense.h"
-#endif
-
 #include "tf_hud_menu_spy_disguise.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -278,11 +273,7 @@ int	CHudMenuSpyDisguise::HudElementKeyInput( int down, ButtonCode_t keynum, cons
 	{
 		int iSlot = -1;
 
-#ifdef SIXENSE
-		if ( !tf_simple_disguise_menu.GetBool() && !g_pSixenseInput->IsEnabled() )
-#else
 		if ( !tf_simple_disguise_menu.GetBool() )
-#endif
 		{
 			// convert slot1, slot2 etc to 1,2,3,4
 			if ( pszCurrentBinding && !Q_strncmp( pszCurrentBinding, "slot", 4 ) && Q_strlen(pszCurrentBinding) > 4 )
@@ -352,11 +343,7 @@ int	CHudMenuSpyDisguise::HudElementKeyInput( int down, ButtonCode_t keynum, cons
 				case KEY_8:
 				case KEY_9:
 					{
-#ifdef SIXENSE
-						if ( !tf_simple_disguise_menu.GetBool() && !g_pSixenseInput->IsEnabled() )
-#else
 						if ( !tf_simple_disguise_menu.GetBool() )
-#endif
 						{
 							iSlot = keynum - KEY_1;
 						}
@@ -370,11 +357,7 @@ int	CHudMenuSpyDisguise::HudElementKeyInput( int down, ButtonCode_t keynum, cons
 			}
 			else
 			{
-#ifdef SIXENSE
-				if ( !tf_simple_disguise_menu.GetBool() && !g_pSixenseInput->IsEnabled() )
-#else
 				if ( !tf_simple_disguise_menu.GetBool() )
-#endif
 				{
 					switch( keynum )
 					{
@@ -494,11 +477,8 @@ void CHudMenuSpyDisguise::ToggleSelectionIcons( bool bGroup )
 		}
 	}
 	else
-#ifdef SIXENSE
-	if ( tf_simple_disguise_menu.GetBool() || g_pSixenseInput->IsEnabled() )
-#else
+
 	if ( tf_simple_disguise_menu.GetBool() )
-#endif
 	{
 		for ( int i=0; i<3; ++i )
 		{

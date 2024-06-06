@@ -674,8 +674,6 @@ CPPFILES= \
     replay/vgui/replayrenderoverlay.cpp \
     ScreenSpaceEffects.cpp \
     simple_keys.cpp \
-    sixense/in_sixense.cpp \
-    sixense/in_sixense_gesture_bindings.cpp \
     smoke_fog_overlay.cpp \
     splinepatch.cpp \
     spritemodel.cpp \
