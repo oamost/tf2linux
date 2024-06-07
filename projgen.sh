@@ -38,6 +38,23 @@ echo "launching vpc to generate projects..."
 ./vpc_linux /v +engine >> ../../../projgen.log
 ./vpc_linux /v +gamedlls /allgames >> ../../../projgen.log
 
+# generate additional dependency projects
+#
+echo "generating additional dependency projects..."
+./vpc_linux /v +bitmap >> ../../../projgen.log
+./vpc_linux /v +choreoobjects >> ../../../projgen.log
+./vpc_linux /v +dmxloader >> ../../../projgen.log
+./vpc_linux /v +mathlib >> ../../../projgen.log
+./vpc_linux /v +particles >> ../../../projgen.log
+./vpc_linux /v +replay_common >> ../../../projgen.log
+./vpc_linux /v +replay >> ../../../projgen.log
+./vpc_linux /v +tier1 >> ../../../projgen.log
+./vpc_linux /v +tier2 >> ../../../projgen.log
+./vpc_linux /v +tier3 >> ../../../projgen.log
+./vpc_linux /v +matsys_controls >> ../../../projgen.log
+./vpc_linux /v +vgui_controls >> ../../../projgen.log
+./vpc_linux /v +vtf >> ../../../projgen.log
+
 echo -e "\nfinished generating projects..."
 echo "leaving vpc directory..."
 
