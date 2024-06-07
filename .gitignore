@@ -1,6 +1,7 @@
 bin/build/*
 *.o
 *.d
+*.P
 tf2_src/devtools/bin/vpc_linux
 tf2_src/external/vpc/utils/vpc/obj/Linux/release/vpc
 !tf2_src/thirdparty/protobuf-2.6.1.tar.gz
