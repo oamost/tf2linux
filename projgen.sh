@@ -54,6 +54,7 @@ echo "generating additional dependency projects..."
 ./vpc_linux /v +matsys_controls >> ../../../projgen.log
 ./vpc_linux /v +vgui_controls >> ../../../projgen.log
 ./vpc_linux /v +vtf >> ../../../projgen.log
+./vpc_linux /v +gcsdk >> ../../../projgen.log
 
 echo -e "\nfinished generating projects..."
 echo "leaving vpc directory..."

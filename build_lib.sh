@@ -2,31 +2,31 @@
 #
 cd tf2_src/bitmap
 make -f bitmap_linux32.mak rebuild
-mv bitmap.a ../lib/common/linux32
+mv bitmap.a ../lib/public/linux32
 
 # choreoobjects.a
 #
 cd ../choreoobjects
 make -f choreoobjects_linux32.mak rebuild
-mv choreoobjects.a ../lib/common/linux32
+mv choreoobjects.a ../lib/public/linux32
 
 # dmxloader.a
 #
 cd ../dmxloader
 make -f dmxloader_linux32.mak rebuild
-mv dmxloader.a ../lib/common/linux32
+mv dmxloader.a ../lib/public/linux32
 
 # mathlib.a
 #
 cd ../mathlib
 make -f mathlib_linux32.mak rebuild
-mv mathlib.a ../lib/common/linux32
+mv mathlib.a ../lib/public/linux32
 
 # particles.a
 #
 cd ../particles
 make -f particles_linux32.mak rebuild
-mv particles.a ../lib/common/linux32
+mv particles.a ../lib/public/linux32
 
 # replay_common.a
 #
@@ -38,41 +38,46 @@ mv replay_common.a ../../lib/common/linux32
 #
 cd ../
 make -f replay_linux32.mak rebuild
-mv replay.a ../lib/common/linux32
+mv replay.a ../lib/public/linux32
 
 # tier1.a
 #
 cd ../tier1
 make -f tier1_linux32.mak rebuild
-mv tier1.a ../lib/common/linux32
+mv tier1.a ../lib/public/linux32
 
 # tier2.a
 #
 cd ../tier2
 make -f tier2_linux32.mak rebuild
-mv tier2.a ../lib/common/linux32
+mv tier2.a ../lib/public/linux32
 
 # tier3.a
 #
 cd ../tier3
 make -f tier3_linux32.mak rebuild
-mv tier3.a ../lib/common/linux32
+mv tier3.a ../lib/public/linux32
 
 # matsys.a
 #
 cd ../vgui2/matsys_controls
 make -f matsys_controls_linux32.mak rebuild
-mv matsys.a ../../lib/common/linux32
+mv matsys_controls.a ../../lib/public/linux32
 
 # vgui_controls.a
 #
 cd ../vgui2/vgui_controls
 make -f vgui_controls_linux32.mak rebuild
-mv vgui_controls.a ../../lib/common/linux32
+mv vgui_controls.a ../lib/public/linux32
 
 # vtf.a
 #
 cd ../../vtf
 make -f vtf_linux32.mak rebuild
-mv vtf.a ../../lib/common/linux32
+mv vtf.a ../lib/public/linux32
 
+# gcsdk.a
+#
+cd ../gcsdk
+make -f gcsdk_linux32.mak rebuild
+mv gcsdk.a ../lib/public/linux32
