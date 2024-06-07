@@ -407,6 +407,53 @@ rebuild:
 # Use the relink target to force to relink the project.
 relink: RemoveOutputFile all
 
+$(LIB_File): $(OTHER_DEPENDENCIES) $(OBJS) 
+	$(QUIET_PREFIX) -$(P4_EDIT_START) $(LIB_File) $(P4_EDIT_END); 
+	$(QUIET_PREFIX) $(AR) $(LIB_File) $(OBJS) $(LIBFILES);
+	$(SHELL) -c "$(POSTBUILDCOMMAND)"
+
+SO_GameOutputFile = $(GAMEOUTPUTFILE)
+
+$(GAMEOUTPUTFILE): $(OUTPUTFILE)
+	$(QUIET_PREFIX) \
+	$(P4_EDIT_START) $(GAMEOUTPUTFILE) $(P4_EDIT_END) && \
+	echo "----" $(QUIET_ECHO_POSTFIX);\
+	echo "---- COPYING TO $@ [$(CFG)] ----";\
+	echo "----" $(QUIET_ECHO_POSTFIX);
+	$(QUIET_PREFIX) -$(P4_EDIT_START) $(GAMEOUTPUTFILE) $(P4_EDIT_END);
+	$(QUIET_PREFIX) -mkdir -p `dirname $(GAMEOUTPUTFILE)` > /dev/null;
+	$(QUIET_PREFIX) rm -f $(GAMEOUTPUTFILE) $(QUIET_ECHO_POSTFIX);
+	$(QUIET_PREFIX) cp -v $(OUTPUTFILE) $(GAMEOUTPUTFILE) $(QUIET_ECHO_POSTFIX);
+	$(QUIET_PREFIX) -$(P4_EDIT_START) $(GAMEOUTPUTFILE)$(SYM_EXT) $(P4_EDIT_END);
+	$(QUIET_PREFIX) $(GEN_SYM) $(GAMEOUTPUTFILE); 
+	$(QUIET_PREFIX) -$(STRIP) $(GAMEOUTPUTFILE);
+	$(QUIET_PREFIX) $(VSIGN) -signvalve $(GAMEOUTPUTFILE);
+	$(QUIET_PREFIX) if [ "$(COPY_DLL_TO_SRV)" = "1" ]; then\
+		echo "----" $(QUIET_ECHO_POSTFIX);\
+		echo "---- COPYING TO $(Srv_GAMEOUTPUTFILE) ----";\
+		echo "----" $(QUIET_ECHO_POSTFIX);\
+		cp -v $(GAMEOUTPUTFILE) $(Srv_GAMEOUTPUTFILE) $(QUIET_ECHO_POSTFIX);\
+		cp -v $(GAMEOUTPUTFILE)$(SYM_EXT) $(Srv_GAMEOUTPUTFILE)$(SYM_EXT) $(QUIET_ECHO_POSTFIX);\
+	fi;
+	$(QUIET_PREFIX) if [ "$(IMPORTLIBRARY)" != "" ]; then\
+		echo "----" $(QUIET_ECHO_POSTFIX);\
+		echo "---- COPYING TO IMPORT LIBRARY $(IMPORTLIBRARY) ----";\
+		echo "----" $(QUIET_ECHO_POSTFIX);\
+		$(P4_EDIT_START) $(IMPORTLIBRARY) $(P4_EDIT_END) && \
+		mkdir -p `dirname $(IMPORTLIBRARY)` > /dev/null && \
+		cp -v $(OUTPUTFILE) $(IMPORTLIBRARY); \
+	fi;
+
+$(SO_File): $(OTHER_DEPENDENCIES) $(OBJS) $(LIBFILENAMES)
+	$(QUIET_PREFIX) \
+	echo "----" $(QUIET_ECHO_POSTFIX);\
+	echo "---- LINKING $@ [$(CFG)] ----";\
+	echo "----" $(QUIET_ECHO_POSTFIX);\
+	\
+	$(LINK) $(LINK_MAP_FLAGS) $(SHLIBLDFLAGS) $(PROFILE_LINKER_FLAG) -o $(OUTPUTFILE) $(LIB_START_SHLIB) $(OBJS) $(LIBFILES) $(SystemLibraries) $(LIB_END_SHLIB);
+	$(QUIET_PREFIX) $(VSIGN) -signvalve $(OUTPUTFILE);
+	$(QUIET_PREFIX) $(SHELL) -c "$(POSTBUILDCOMMAND)"
+
 RemoveOutputFile:
 	rm -f $(OUTPUTFILE)
 

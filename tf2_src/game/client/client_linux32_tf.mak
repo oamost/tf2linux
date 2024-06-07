@@ -977,12 +977,12 @@ LIBFILES = \
     ../../lib/public/linux32/tier3.a \
     ../../lib/public/linux32/vgui_controls.a \
     ../../lib/public/linux32/vtf.a \
-    ../../lib/common/$(CRYPTOPPDIR)/libcrypto.a \
+    ../../lib/common/linux32/libcrypto.a \
     ../../lib/public/linux32/libz.a \
     ../../lib/public/linux32/gcsdk.a \
     ../../lib/public/linux32/vpklib.a \
-    ../../lib/common/$(CRYPTOPPDIR)/libcrypto.a \
-    ../../lib/common/$(CRYPTOPPDIR)/libcryptopp.a \
+    ../../lib/common/linux32/libcrypto.a \
+    ../../lib/common/linux32/libcryptopp.a \
     ../../lib/common/linux32/libjpeg.a \
     ../../lib/public/linux32/libpng.a \
     ../../lib/public/linux32/libz.a \
@@ -993,9 +993,9 @@ LIBFILES = \
 
 
 LIBFILENAMES = \
-    ../../lib/common/$(CRYPTOPPDIR)/libcrypto.a \
-    ../../lib/common/$(CRYPTOPPDIR)/libcrypto.a \
-    ../../lib/common/$(CRYPTOPPDIR)/libcryptopp.a \
+    ../../lib/common/linux32/libcrypto.a \
+    ../../lib/common/linux32/libcrypto.a \
+    ../../lib/common/linux32/libcryptopp.a \
     ../../lib/common/linux32/libjpeg.a \
     ../../lib/common/linux32/replay_common.a \
     ../../lib/public/linux32/bitmap.a \
