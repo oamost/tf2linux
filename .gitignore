@@ -21,5 +21,7 @@ tf2_src/lib/public/linux32/particles.a
 tf2_src/lib/public/linux32/replay_common.a
 tf2_src/lib/public/linux32/tier3.a
 tf2_src/lib/public/linux32/vtf.a
+tf2_src/lib/public/linux32/tier1.a
+tf2_src/tier0/obj_tier0_linux32/release
 projgen.log
 protobuf.log
