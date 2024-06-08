@@ -93,3 +93,9 @@ mv obj_tier0_linux32/release/libtier0.so ../lib/public/linux32
 cd ../vstdlib
 make -f vstdlib_linux32.mak rebuild
 mv obj_vstdlib_linux32/release/libvstdlib.so ../lib/public/linux32
+
+# vpklib.a
+#
+cd ../vpklib
+make -f vpklib_linux32.mak rebuild
+mv vpklib.a ../lib/public/linux32
