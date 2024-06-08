@@ -4,20 +4,20 @@ tf2_src=$(pwd)/tf2_src
 
 # init build log
 #
-touch $tf2_src/../build.log
+touch build.log
 
-echo -e "---------------------------------tf2linux build log---------------------------------\n" >> $tf2_src/../build.log
-date >> $tf2_src/../build.log
-echo -e "------------------------------------------------------------------------------------\n" >> $tf2_src/../build.log
+echo -e "---------------------------------tf2linux build log---------------------------------" > build.log
+date >> build.log
+echo -e "------------------------------------------------------------------------------------\n" >> build.log
 
 # clean repo
 #
-echo -e "deep cleaning repo...\n" >> $tf2_src/../build.log
+echo -e "deep cleaning repo..." >> build.log
 
 git clean -dfx >> /dev/null
 git reset --hard
 
-echo -e "done.\n" >> $tf2_src/../build.log
+echo -e "done." >> build.log
 
 ##################################################################################################
 #                                       BUILD TF2
@@ -28,8 +28,7 @@ build_tf2()
     ##################################################################################################
     #                                       BUILD PROTOBUF
     ##################################################################################################
-
-    echo -e "\nbuild started..."
+    
     echo -e "building protobuf..." >> $tf2_src/../build.log
 
     # entering thirdparty dir
