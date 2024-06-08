@@ -5,6 +5,14 @@ echo -e "deep cleaning repo...\n"
 git clean -dfx >> /dev/null
 git reset --hard
 
+# init build log
+#
+touch $tf2_src/../build.log
+
+echo -e "---------------------------------tf2linux build log---------------------------------\n"
+date >> $tf2_src/../build.log
+echo -e "------------------------------------------------------------------------------------\n"
+
 ##################################################################################################
 #                                       BUILD PROTOBUF
 ##################################################################################################
@@ -14,7 +22,7 @@ tf2_src=$(pwd)/tf2_src
 build_tf2() 
 {
     echo -e "\nbuild started..."
-    echo -e "\nbuilding protobuf..." >> $tf2_src/../build.log
+    echo -e "building protobuf..." >> $tf2_src/../build.log
 
     # entering thirdparty dir
     #
@@ -39,11 +47,6 @@ build_tf2()
     make clean
     make
     sudo make install
-
-    # build log
-    #
-    touch $tf2_src/../build.log
-    date > $tf2_src/../build.log
 
     make check | grep testsuite\ summary -A7 -i >> $tf2_src/../build.log
 
