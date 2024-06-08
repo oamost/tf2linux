@@ -1,23 +1,17 @@
+# clean repo + init log
+#
+git clean -dfx >> /dev/null
+git reset --hard
+
 # src root
 #
 tf2_src=$(pwd)/tf2_src
 
-# init build log
-#
-touch build.log
-
 echo -e "---------------------------------tf2linux build log---------------------------------" > build.log
 date >> build.log
 echo -e "------------------------------------------------------------------------------------\n" >> build.log
+echo -e "deep cleaning repo - done" >> build.log
 
-# clean repo
-#
-echo -e "deep cleaning repo..." >> build.log
-
-git clean -dfx >> /dev/null
-git reset --hard
-
-echo -e "done." >> build.log
 
 ##################################################################################################
 #                                       BUILD TF2
