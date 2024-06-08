@@ -66,9 +66,9 @@ mv matsys_controls.a ../../lib/public/linux32
 
 # vgui_controls.a
 #
-cd ../vgui2/vgui_controls
+cd ../vgui_controls
 make -f vgui_controls_linux32.mak rebuild
-mv vgui_controls.a ../lib/public/linux32
+mv vgui_controls.a ../../lib/public/linux32
 
 # vtf.a
 #
