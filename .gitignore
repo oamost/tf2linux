@@ -24,6 +24,8 @@ tf2_src/lib/public/linux32/vtf.a
 tf2_src/lib/public/linux32/libtier0.so
 tf2_src/lib/public/linux32/tier1.a
 tf2_src/lib/public/linux32/tier2.a
+tf2_src/lib/public/linux32/libvstdlib.so
+tf2_src/vstdlib/obj_vstdlib_linux32
 tf2_src/tier0/obj_tier0_linux32/release
 projgen.log
 protobuf.log
