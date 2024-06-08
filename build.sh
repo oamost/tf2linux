@@ -23,7 +23,7 @@ build_tf2()
     #                                       BUILD PROTOBUF
     ##################################################################################################
     
-    echo -e "building protobuf..." >> $tf2_src/../build.log
+    echo -e "\nbuilding protobuf...\n" >> $tf2_src/../build.log
 
     # entering thirdparty dir
     #
@@ -70,6 +70,8 @@ build_tf2()
 
     cp protobuf-2.6.1/bin/linux32/out/* protobuf-2.6.1/bin/linux32
     cp /usr/local/bin/protoc protobuf-2.6.1/bin/linux32
+
+    echo -e "\ndone.\n" >> $tf2_src/../build.log
 
     ##################################################################################################
     #                                       BUILD LIBRARIES
@@ -195,6 +197,8 @@ build_tf2()
     make -f vpklib_linux32.mak rebuild
     mv vpklib.a $tf2_src/lib/public/linux32
     echo "done: vpklib.a" >> $tf2_src/../build.log
+
+    echo "\ndone.\n" >> $tf2_src/../build.log
     
     ##################################################################################################
     #                                       BUILD CLIENT
