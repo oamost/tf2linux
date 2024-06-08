@@ -43,5 +43,6 @@ cp src/.libs/* ../protobuf-2.6.1/bin/linux32/out
 cd ..
 
 cp /usr/local/bin/protoc protobuf-2.6.1/bin/linux32
+cp protobuf-2.6.1/bin/linux32/out/libprotobuf.a protobuf-2.6.1/bin/linux32
 
 
