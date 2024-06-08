@@ -12,7 +12,6 @@
 #include "tier1/KeyValues.h"
 #include <vgui/ISurface.h>
 #include "filesystem.h"
-#include "p4lib/ip4.h"
 #include "tier2/tier2.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -237,17 +236,6 @@ void PerforceFileList::AddItemToDirectoryList( const char *pFullPath, int nItemI
 	{
 		pInfo = &m_Directories[i];
 	}
-	else
-	{
-		char pClientSpec[MAX_PATH];
-		if ( !p4->GetClientSpecForDirectory( pFullPath, pClientSpec, sizeof(pClientSpec) ) )
-		{
-			pClientSpec[0] = 0;
-		}
-
-		pInfo = &m_Directories[ pFullPath ];
-		pInfo->m_ClientSpec = pClientSpec;
-	}
 
 	pInfo->m_ItemIDs.AddToTail( nItemID );
 }
@@ -409,14 +397,7 @@ static P4File_t *FindFileInPerforceList( const char *pFileName, CUtlVector<P4Fil
 	for ( int i = 0; i < nCount; ++i )
 	{
 		if ( pFound[i] )
-			continue;
-
-		const char *pPerforceFileName = p4->String( fileList[i].m_sLocalFile );
-		if ( !Q_stricmp( pPerforceFileName, pFileName ) )
-		{
-			pFound[i] = true;
-			return &fileList[i];
-		}
+			continue;		
 	}
 	return NULL;
 }
@@ -433,21 +414,18 @@ void PerforceFileList::RefreshPerforceState( int nItemID, bool bFileExists, P4Fi
 	bool bIsFileInPerforce = (pFileInfo != NULL);
 	if ( bIsFileInPerforce )
 	{
-		if ( pFileInfo->m_bDeleted != bFileExists )
-		{
-			bIsSynched = ( pFileInfo->m_bDeleted || ( pFileInfo->m_iHeadRevision == pFileInfo->m_iHaveRevision ) );
-		}
+		
 	}
 	else
 	{
 		bIsSynched = !bFileExists;
 	}
 
-	bool bIsDeleted = bIsFileInPerforce && !bFileExists && pFileInfo->m_bDeleted;
+	bool bIsDeleted = false;
 
 	kv->SetInt( "in_perforce", bIsFileInPerforce );
 	kv->SetInt( "synched", bIsSynched );
-	kv->SetInt( "checked_out", bIsFileInPerforce && ( pFileInfo->m_eOpenState != P4FILE_UNOPENED ) );
+	kv->SetInt( "checked_out", bIsFileInPerforce && false );
 	kv->SetInt( "deleted", bIsDeleted ); 
 
 	if ( bIsDeleted )
@@ -480,23 +458,7 @@ void PerforceFileList::Refresh()
 	for ( int i = 0; i < nCount; ++i )
 	{
 		const char *pDirectory = m_Directories.String(i);
-		DirectoryInfo_t *pInfo = &m_Directories[i];
-
-		// Retrives files, uses faster method to avoid finding clientspec
-		CUtlVector<P4File_t> &fileList = p4->GetFileListUsingClientSpec( pDirectory, pInfo->m_ClientSpec );
-		int nFileCount = fileList.Count();
-		bool *pFound = (bool*)_alloca( nFileCount * sizeof(bool) );
-		memset( pFound, 0, nFileCount * sizeof(bool) );
-
-		int nItemCount = pInfo->m_ItemIDs.Count();
-		for ( int j = 0; j < nItemCount; ++j )
-		{
-			int nItemID = pInfo->m_ItemIDs[j];
-			const char *pFileName = GetFile( nItemID );
-			bool bFileExists = g_pFullFileSystem->FileExists( pFileName );
-			P4File_t *pFileInfo = FindFileInPerforceList( pFileName, fileList, pFound );
-			RefreshPerforceState( nItemID, bFileExists, pFileInfo );
-		}
+		DirectoryInfo_t *pInfo = &m_Directories[i];		
 	}
 }
 

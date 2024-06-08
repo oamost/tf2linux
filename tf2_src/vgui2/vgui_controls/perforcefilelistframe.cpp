@@ -12,7 +12,6 @@
 #include "vgui_controls/TextEntry.h"
 #include "vgui_controls/MessageBox.h"
 #include "tier2/tier2.h"
-#include "p4lib/ip4.h"
 #include "filesystem.h"
 #include "vgui/IVGui.h"
 
@@ -337,8 +336,8 @@ void CPerforceFileListFrame::AddFileForOpen( const char *pFullPath )
 	if ( !p4 )
 		return;
 
-	bool bIsInPerforce = p4->IsFileInPerforce( pFullPath );
-	bool bIsOpened = ( p4->GetFileState( pFullPath ) != P4FILE_UNOPENED );
+	bool bIsInPerforce = false;
+	bool bIsOpened = false;
 	switch( m_Action )
 	{
 	case PERFORCE_ACTION_FILE_ADD:
@@ -365,40 +364,6 @@ void CPerforceFileListFrame::AddFileForOpen( const char *pFullPath )
 }
 
 
-//-----------------------------------------------------------------------------
-// Add files to dialog for submit/revert dialogs
-//-----------------------------------------------------------------------------
-void CPerforceFileListFrame::AddFileForSubmit( const char *pFullPath, P4FileState_t state )
-{
-	if ( state == P4FILE_UNOPENED )
-		return;
-
-	char pBuf[128];
-	const char *pPrefix = (m_Action == PERFORCE_ACTION_FILE_REVERT) ? "Revert" : "Submit";
-	switch( state )
-	{
-	case P4FILE_OPENED_FOR_ADD:
-		Q_snprintf( pBuf, sizeof(pBuf), "%s Add", pPrefix );
-		AddOperation( pBuf, pFullPath );
-		break;
-
-	case P4FILE_OPENED_FOR_EDIT:
-		Q_snprintf( pBuf, sizeof(pBuf), "%s Edit", pPrefix );
-		AddOperation( pBuf, pFullPath );
-		break;
-
-	case P4FILE_OPENED_FOR_DELETE:
-		Q_snprintf( pBuf, sizeof(pBuf), "%s Delete", pPrefix );
-		AddOperation( pBuf, pFullPath );
-		break;
-
-	case P4FILE_OPENED_FOR_INTEGRATE:
-		Q_snprintf( pBuf, sizeof(pBuf), "%s Integrate", pPrefix );
-		AddOperation( pBuf, pFullPath );
-		break;
-	}
-}
-
 
 //-----------------------------------------------------------------------------
 // Version of AddFile that accepts full paths
@@ -420,11 +385,6 @@ void CPerforceFileListFrame::AddFile( const char *pFullPath )
 
 	// Deal with submit, revert
 	bool bFileExists = g_pFullFileSystem->FileExists( pFullPath, NULL );
-	P4FileState_t state = p4->GetFileState( pFullPath );
-	if ( bFileExists || (state == P4FILE_OPENED_FOR_DELETE) )
-	{
-		AddFileForSubmit( pFullPath, state );
-	}
 }
 
 
@@ -455,16 +415,13 @@ void CPerforceFileListFrame::AddFile( const char *pRelativePath, const char *pPa
 	char pFullPath[MAX_PATH];
 	if ( g_pFullFileSystem->FileExists( pRelativePath, pPathId ) )
 	{
-		g_pFullFileSystem->RelativePathToFullPath( pRelativePath, pPathId, pFullPath, sizeof( pFullPath ) );
-		P4FileState_t state = p4->GetFileState( pFullPath );
-		AddFileForSubmit( pFullPath, state );
+		g_pFullFileSystem->RelativePathToFullPath( pRelativePath, pPathId, pFullPath, sizeof( pFullPath ) );		
 		return;
 	}
 
 	// Get the list of opened files, cache it off so we aren't continually reasking
 	if ( Q_stricmp( pPathId, m_LastOpenedFilePathId ) )
 	{
-		p4->GetOpenedFileListInPath( pPathId, m_OpenedFiles );
 		m_LastOpenedFilePathId = pPathId;
 	}
 
@@ -478,26 +435,7 @@ void CPerforceFileListFrame::AddFile( const char *pRelativePath, const char *pPa
 	Q_FixSlashes( pSearchString );
 
 	int k;
-	int nOpenedFileCount = m_OpenedFiles.Count();
-	for ( k = 0; k < nOpenedFileCount; ++k )
-	{
-		if ( m_OpenedFiles[k].m_eOpenState != P4FILE_OPENED_FOR_DELETE )
-			continue;
-
-		// Check to see if the end of the local file matches the file
-		const char *pLocalFile = p4->String( m_OpenedFiles[k].m_sLocalFile );
-
-		// This ensures the full path lies under the search path
-		if ( !g_pFullFileSystem->FullPathToRelativePathEx( pLocalFile, pPathId, pTemp, sizeof(pTemp) ) )
-			continue;
-
-		// The relative paths had better be the same
-		if ( Q_stricmp( pTemp, pSearchString ) )
-			continue;
-
-		AddFileForSubmit( pLocalFile, m_OpenedFiles[k].m_eOpenState );
-		break;
-	}
+	int nOpenedFileCount = 0;	
 }
 
 
@@ -521,19 +459,19 @@ bool CPerforceFileListFrame::PerformOperation( )
 	switch ( m_Action )
 	{
 	case PERFORCE_ACTION_FILE_ADD:
-		bSuccess = p4->OpenFilesForAdd( nFileCount, ppFileNames );
+		bSuccess = false;
 		break;
 
 	case PERFORCE_ACTION_FILE_EDIT:
-		bSuccess = p4->OpenFilesForEdit( nFileCount, ppFileNames );
+		bSuccess = false;
 		break;
 
 	case PERFORCE_ACTION_FILE_DELETE:
-		bSuccess = p4->OpenFilesForDelete( nFileCount, ppFileNames );
+		bSuccess = false;
 		break;
 
 	case PERFORCE_ACTION_FILE_REVERT:
-		bSuccess = p4->RevertFiles( nFileCount, ppFileNames );
+		bSuccess = false;
 		break;
 
 	case PERFORCE_ACTION_FILE_SUBMIT:
@@ -549,13 +487,13 @@ bool CPerforceFileListFrame::PerformOperation( )
 			}
 			else
 			{
-				bSuccess = p4->SubmitFiles( nFileCount, ppFileNames, pDescription );
+				bSuccess = false;
 			}
 		}
 		break;
 	}
 
-	const char *pErrorString = p4->GetLastError();
+	const char *pErrorString = nullptr;
 	if ( !bSuccess )
 	{
 		vgui::MessageBox *pError = new vgui::MessageBox( "Perforce Error!", pErrorString, GetParent() );
@@ -607,18 +545,15 @@ void ShowPerforceQuery( vgui::Panel *pParent, const char *pFileName, vgui::Panel
 		return;
 	}
 
-	// Refresh the current perforce settings
-	p4->RefreshActiveClient();
-
 	PerforceAction_t action = PERFORCE_ACTION_NONE;
 	const char *pTitle = NULL;
-	if ( !p4->IsFileInPerforce( pFileName )	)
+	if ( false	)
 	{
 		// If the file isn't in perforce, ask to add it
 		action = PERFORCE_ACTION_FILE_ADD;
 		pTitle = "Add File to Perforce?";
 	}
-	else if ( p4->GetFileState( pFileName ) == P4FILE_UNOPENED )
+	else if ( false )
 	{
 		// If the file isn't checked out yet, ask to check it out
 		action = PERFORCE_ACTION_FILE_EDIT;
