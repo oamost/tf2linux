@@ -81,3 +81,9 @@ mv vtf.a ../lib/public/linux32
 cd ../gcsdk
 make -f gcsdk_linux32.mak rebuild
 mv gcsdk.a ../lib/public/linux32
+
+# libtier0.so
+#
+cd ../tier0
+make -f tier0_linux32.mak rebuild
+mv libtier0.so ../lib/public/linux32
