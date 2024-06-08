@@ -80,16 +80,6 @@ CPPFILES= \
     vcrmode_posix.cpp \
     vprof.cpp \
 
-
-LIBFILES = \
-    ../thirdparty/telemetry/lib/libtelemetryx86.link.a \
-
-
-LIBFILENAMES = \
-    ../thirdparty/telemetry/lib/libtelemetryx86.link.a \
-
-
-
 OTHER_DEPENDENCIES = \
 
 
@@ -464,13 +454,6 @@ CPPFILES= \
     vcrmode_posix.cpp \
     vprof.cpp \
 
-
-LIBFILES = \
-    ../thirdparty/telemetry/lib/libtelemetryx86.link.a \
-
-
-LIBFILENAMES = \
-    ../thirdparty/telemetry/lib/libtelemetryx86.link.a \
 
 
 

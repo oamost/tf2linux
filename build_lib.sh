@@ -86,4 +86,4 @@ mv gcsdk.a ../lib/public/linux32
 #
 cd ../tier0
 make -f tier0_linux32.mak rebuild
-mv libtier0.so ../lib/public/linux32
+mv obj_tier0_linux32/release/libtier0.so ../lib/public/linux32

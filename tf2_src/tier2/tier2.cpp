@@ -14,7 +14,6 @@
 #include "materialsystem/ivballoctracker.h"
 #include "inputsystem/iinputsystem.h"
 #include "networksystem/inetworksystem.h"
-#include "p4lib/ip4.h"
 #include "mdllib/mdllib.h"
 #include "filesystem/IQueuedLoader.h"
 
@@ -86,7 +85,7 @@ void ConnectTier2Libraries( CreateInterfaceFn *pFactoryList, int nFactoryCount )
 		}
 		if ( !p4 )
 		{
-			p4 = ( IP4 * )pFactoryList[i]( P4_INTERFACE_VERSION, NULL );
+			p4 = nullptr; // removed p4
 		}
 		if ( !mdllib )
 		{
