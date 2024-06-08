@@ -16,7 +16,7 @@ build_tf2()
 {
     echo -e "\nBuild started..."
     
-    cd $(tf2_src)/thirdparty
+    cd $tf2_src/thirdparty
 
     # extracting package
     #
@@ -40,15 +40,15 @@ build_tf2()
 
     # build log
     #
-    touch $(tf2_src)/../build.log
-    date > $(tf2_src)/../build.log
+    touch $tf2_src/../build.log
+    date > $tf2_src/../build.log
 
-    make check | grep testsuite\ summary -A7 -i >> $(tf2_src)/../build.log
+    make check | grep testsuite\ summary -A7 -i >> $tf2_src/../build.log
 
     # inform about results
     #
-    failed1=$(grep -i 'XFAIL' $(tf2_src)/../build.log | awk '{print $2}' | tr -cd '[:digit:]')
-    failed2=$(grep -i 'FAIL' $(tf2_src)/../build.log | awk '{print $2}' | tr -cd '[:digit:]')
+    failed1=$(grep -i 'XFAIL' $tf2_src/../build.log | awk '{print $2}' | tr -cd '[:digit:]')
+    failed2=$(grep -i 'FAIL' $tf2_src/../build.log | awk '{print $2}' | tr -cd '[:digit:]')
 
     if [[ "$failed1" -gt 0 ]] || [[ "$failed2" -gt 0 ]]; then
         echo "failed - see build.log for details"
@@ -58,8 +58,8 @@ build_tf2()
 
     # copy executable to target location
     #
-    mkdir -p $(tf2_src)/thirdparty/protobuf-2.6.1/bin/linux32/out
-    cp src/.libs/* $(tf2_src)/thirdparty/protobuf-2.6.1/bin/linux32/out
+    mkdir -p $tf2_src/thirdparty/protobuf-2.6.1/bin/linux32/out
+    cp src/.libs/* $tf2_src/thirdparty/protobuf-2.6.1/bin/linux32/out
     cd ..
 
     cp protobuf-2.6.1/bin/linux32/out/* protobuf-2.6.1/bin/linux32
@@ -70,105 +70,105 @@ build_tf2()
 ##################################################################################################
 # bitmap.a
 #
-    cd $(tf2_src)/bitmap
+    cd $tf2_src/bitmap
     make -f bitmap_linux32.mak rebuild
-    mv bitmap.a $(tf2_src)/lib/public/linux32
+    mv bitmap.a $tf2_src/lib/public/linux32
 
     # choreoobjects.a
     #
-    cd $(tf2_src)/choreoobjects
+    cd $tf2_src/choreoobjects
     make -f choreoobjects_linux32.mak rebuild
-    mv choreoobjects.a $(tf2_src)/lib/public/linux32
+    mv choreoobjects.a $tf2_src/lib/public/linux32
 
     # dmxloader.a
     #
-    cd $(tf2_src)/dmxloader
+    cd $tf2_src/dmxloader
     make -f dmxloader_linux32.mak rebuild
-    mv dmxloader.a $(tf2_src)/lib/public/linux32
+    mv dmxloader.a $tf2_src/lib/public/linux32
 
     # mathlib.a
     #
-    cd $(tf2_src)/mathlib
+    cd $tf2_src/mathlib
     make -f mathlib_linux32.mak rebuild
-    mv mathlib.a $(tf2_src)/lib/public/linux32
+    mv mathlib.a $tf2_src/lib/public/linux32
 
     # particles.a
     #
-    cd $(tf2_src)/particles
+    cd $tf2_src/particles
     make -f particles_linux32.mak rebuild
-    mv particles.a $(tf2_src)/lib/public/linux32
+    mv particles.a $tf2_src/lib/public/linux32
 
     # replay_common.a
     #
-    cd $(tf2_src)/replay/common
+    cd $tf2_src/replay/common
     make -f replay_common_linux32.mak rebuild
-    mv replay_common.a $(tf2_src)/lib/common/linux32
+    mv replay_common.a $tf2_src/lib/common/linux32
 
     # replay.a
     #
-    cd $(tf2_src)/replay
+    cd $tf2_src/replay
     make -f replay_linux32.mak rebuild
-    mv replay.a $(tf2_src)/lib/public/linux32
+    mv replay.a $tf2_src/lib/public/linux32
 
     # tier1.a
     #
-    cd $(tf2_src)/tier1
+    cd $tf2_src/tier1
     make -f tier1_linux32.mak rebuild
-    mv tier1.a $(tf2_src)/lib/public/linux32
+    mv tier1.a $tf2_src/lib/public/linux32
 
     # tier2.a
     #
-    cd $(tf2_src)/tier2
+    cd $tf2_src/tier2
     make -f tier2_linux32.mak rebuild
-    mv tier2.a $(tf2_src)/lib/public/linux32
+    mv tier2.a $tf2_src/lib/public/linux32
 
     # tier3.a
     #
-    cd $(tf2_src)/tier3
+    cd $tf2_src/tier3
     make -f tier3_linux32.mak rebuild
-    mv tier3.a $(tf2_src)/lib/public/linux32
+    mv tier3.a $tf2_src/lib/public/linux32
 
     # matsys.a
     #
-    cd $(tf2_src)/vgui2/matsys_controls
+    cd $tf2_src/vgui2/matsys_controls
     make -f matsys_controls_linux32.mak rebuild
-    mv matsys_controls.a $(tf2_src)/lib/public/linux32
+    mv matsys_controls.a $tf2_src/lib/public/linux32
 
     # vgui_controls.a
     #
-    cd $(tf2_src)/vgui_controls
+    cd $tf2_src/vgui_controls
     make -f vgui_controls_linux32.mak rebuild
-    mv vgui_controls.a $(tf2_src)/lib/public/linux32
+    mv vgui_controls.a $tf2_src/lib/public/linux32
 
     # vtf.a
     #
-    cd $(tf2_src)/vtf
+    cd $tf2_src/vtf
     make -f vtf_linux32.mak rebuild
-    mv vtf.a $(tf2_src)/lib/public/linux32
+    mv vtf.a $tf2_src/lib/public/linux32
 
     # gcsdk.a
     #
-    cd $(tf2_src)/gcsdk
+    cd $tf2_src/gcsdk
     make -f gcsdk_linux32.mak rebuild
-    mv gcsdk.a $(tf2_src)/lib/public/linux32
+    mv gcsdk.a $tf2_src/lib/public/linux32
 
     # libtier0.so
     #
-    cd $(tf2_src)/tier0
+    cd $tf2_src/tier0
     make -f tier0_linux32.mak rebuild
-    mv obj_tier0_linux32/release/libtier0.so $(tf2_src)/lib/public/linux32
+    mv obj_tier0_linux32/release/libtier0.so $tf2_src/lib/public/linux32
 
     # libvstdlib.so
     #
-    cd $(tf2_src)/vstdlib
+    cd $tf2_src/vstdlib
     make -f vstdlib_linux32.mak rebuild
-    mv obj_vstdlib_linux32/release/libvstdlib.so $(tf2_src)/lib/public/linux32
+    mv obj_vstdlib_linux32/release/libvstdlib.so $tf2_src/lib/public/linux32
 
     # vpklib.a
     #
-    cd $(tf2_src)/vpklib
+    cd $tf2_src/vpklib
     make -f vpklib_linux32.mak rebuild
-    mv vpklib.a $(tf2_src)/lib/public/linux32
+    mv vpklib.a $tf2_src/lib/public/linux32
 
 ##################################################################################################
 #                                       BUILD CLIENT
@@ -177,7 +177,7 @@ build_tf2()
     # entering client dir
     #
     echo "entering client dir..."
-    cd $(tf2_src)/game/client
+    cd $tf2_src/game/client
 
     # build client
     # 
