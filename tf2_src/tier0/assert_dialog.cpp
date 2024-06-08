@@ -27,7 +27,8 @@
 
 // We lazily load the SDL shared object, and only reference functions if it's
 // available, so this can be included on the dedicated server too.
-#include <SDL/SDL.h>
+
+#include <SDL2/SDL_messagebox.h>
 
 typedef int ( SDLCALL FUNC_SDL_ShowMessageBox )( const SDL_MessageBoxData *messageboxdata, int *buttonid );
 #endif
