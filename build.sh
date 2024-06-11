@@ -43,7 +43,7 @@ build_tf2()
     export LDFLAGS="-m32"
 
     ./autogen.sh
-    ./configure
+    ./configure --disable-shared
 
     make clean
     make
