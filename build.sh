@@ -181,14 +181,14 @@ build_tf2()
     #
     cd $tf2_src/tier0
     make -f tier0_linux32.mak rebuild
-    mv obj_tier0_linux32/release/libtier0.so $tf2_src/lib/public/linux32
+    mv obj_tier0_linux32/debug/libtier0.so $tf2_src/lib/public/linux32
     echo "done: libtier0.so" >> $tf2_src/../build.log
 
     # libvstdlib.so
     #
     cd $tf2_src/vstdlib
     make -f vstdlib_linux32.mak rebuild
-    mv obj_vstdlib_linux32/release/libvstdlib.so $tf2_src/lib/public/linux32
+    mv obj_vstdlib_linux32/debug/libvstdlib.so $tf2_src/lib/public/linux32
     echo "done: libvstdlib.so" >> $tf2_src/../build.log
 
     # vpklib.a
