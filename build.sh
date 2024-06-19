@@ -1,5 +1,3 @@
-clear 
-
 # clean repo + init log
 #
 perform_deep_clean()
@@ -8,6 +6,7 @@ perform_deep_clean()
     git reset --hard        
 }
 
+clear 
 echo -e "perform deep clean? (1) to yes, anything else to continue...\n"
 read -n 1 should_deep_clean
 
@@ -95,6 +94,7 @@ build_tf2()
 
     }   # build_protobuf()
 
+    clear 
     echo -e "\nBuild protobuf? (1) to yes, anything else to continue."
     read -n 1 should_build_protobuf
 
@@ -239,6 +239,7 @@ build_tf2()
         echo "\ndone.\n" >> $tf2_src/../build.log
     } # build_libs()
 
+    clear 
     echo -e "\nBuild game libs? (1) to yes, anything else to continue."
     read -n 1 should_build_libs
 
@@ -269,7 +270,8 @@ build_tf2()
         echo -e "\n\nbuilding client.so...\n" >> $tf2_src/../build.log
         make -f client_linux32_tf.mak rebuild >> $tf2_src/../build.log
     } # build_client()
-
+    
+    clear 
     echo -e "\nBuild client.so? (1) to yes, anything else to continue."
     read -n 1 should_build_client_tf
 
