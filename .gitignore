@@ -24,7 +24,7 @@ tf2_src/lib/public/linux32/vpklib.a
 tf2_src/lib/public/linux32/libvstdlib.so
 tf2_src/lib/common/linux32/replay_common.a
 tf2_src/vgui2/vgui_controls/vgui_controls.a
-
+tf2_src/tier0/obj_tier0_linux32/debug/
 tf2_src/devtools/bin/vpc_linux
 tf2_src/external/vpc/utils/vpc/obj/Linux/release/vpc
 tf2_src/game/client/generated_proto_tf
