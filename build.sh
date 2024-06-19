@@ -1,7 +1,25 @@
 # clean repo + init log
 #
-git clean -dfx >> /dev/null
-git reset --hard
+perform_deep_clean()
+{
+    git clean -dfx >> /dev/null
+    git reset --hard        
+}
+
+echo -e "perform deep clean? (1) to yes, anything else to continue...\n"
+read -n 1 should_deep_clean
+
+if [[ "$should_deep_clean" == 1 ]]; then
+
+    # deep clean
+    #
+    perform_deep_clean
+
+else 
+
+    echo -e "\nuser skipped deep cleaning..."
+
+fi
 
 # src root
 #
@@ -86,7 +104,7 @@ build_tf2()
 
     else
 
-        echo -e "user skipped protobuf...\n";
+        echo -e "\nuser skipped build protobuf...\n";
 
     fi
 
@@ -230,7 +248,7 @@ build_tf2()
 
     else
 
-        echo -e "user skipped game libs...\n";
+        echo -e "\nuser skipped game libs...\n";
 
     fi
 
@@ -261,7 +279,7 @@ build_tf2()
 
     else
 
-        echo -e "user skipped game libs...\n";
+        echo -e "\nuser skipped client.so...\n";
 
     fi
 }
