@@ -1,7 +1,7 @@
 # clean repo + init log
 #
-#git clean -dfx >> /dev/null
-#git reset --hard
+git clean -dfx >> /dev/null
+git reset --hard
 
 # src root
 #
