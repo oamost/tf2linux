@@ -1,3 +1,5 @@
+clear 
+
 # clean repo + init log
 #
 perform_deep_clean()
