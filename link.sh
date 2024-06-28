@@ -14,6 +14,9 @@ cd tf2_src/game/client
 -DPROJECTDIR=/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client -D_DLL_EXT=.so \
 -DSOURCE1=1 -DVPCGAME=valve -D_LINUX=1 -D_POSIX=1 -DLINUX=1 -DPOSIX=1  -D_GLIBCXX_USE_CXX11_ABI=0 -DVPROF_LEVEL=1 -DGNUC -DNO_HOOK_MALLOC \
 \
+-I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/protobuf-2.6.1/src \
+-I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
+\
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2/elements \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/tf \
@@ -28,15 +31,11 @@ cd tf2_src/game/client
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public/tier0 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public/tier1 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/SDL2 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/protobuf-2.6.1/src \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/vgui2/include \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/vgui2/controls \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/game_controls \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/sixensesdk/include \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/protobuf-2.6.1/src \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared/econ \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/gcsdk/steamextra \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/econ \
@@ -58,6 +57,9 @@ cd tf2_src/game/client
 -DPROJECTDIR=/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client \
 -D_DLL_EXT=.so -DSOURCE1=1 -DVPCGAME=valve -D_LINUX=1 -D_POSIX=1 -DLINUX=1 -DPOSIX=1  -D_GLIBCXX_USE_CXX11_ABI=0 -DVPROF_LEVEL=1 -DGNUC -DNO_HOOK_MALLOC \
 \
+-I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
+-I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/protobuf-2.6.1/src \
+\
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2/elements \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/tf \
@@ -72,15 +74,11 @@ cd tf2_src/game/client
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public/tier0 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public/tier1 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/SDL2 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/protobuf-2.6.1/src \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/vgui2/include \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/vgui2/controls \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/game_controls \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/sixensesdk/include \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/protobuf-2.6.1/src \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared/econ \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/gcsdk/steamextra \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/econ \
@@ -1017,9 +1015,10 @@ cd tf2_src/game/client
 ./obj_client_tf_linux32/debug/weapon_selection.o \
 ./obj_client_tf_linux32/debug/WorldDimsProxy.o \
 \
+../../thirdparty/protobuf-2.6.1/bin/linux32/libprotobuf.a \
+\
 ../../lib/public/linux32/tier1.a \
 ../../lib/common/linux32/replay_common.a \
-../../thirdparty/protobuf-2.6.1/bin/linux32/libprotobuf.a \
 ../../lib/public/linux32/bitmap.a \
 ../../lib/public/linux32/choreoobjects.a \
 ../../lib/public/linux32/dmxloader.a \
