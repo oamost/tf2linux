@@ -1,3 +1,7 @@
+echo -e "---------------------------------tf2linux linker log---------------------------------" > link.log
+date >> link.log
+echo -e "------------------------------------------------------------------------------------\n" >> link.log
+
 cd tf2_src/game/client
 
 /usr/bin/gcc \
@@ -1041,5 +1045,7 @@ cd tf2_src/game/client
 -L../../lib/public/linux32 -lvstdlib \
 -L../../lib/public/linux32 -lsteam_api \
 -L../../lib/public/linux32 -lsteamnetworkingsockets  -lrt  -Wl,--end-group -lm -ldl /usr/lib/gcc/x86_64-pc-linux-gnu/14.1.1/../../../../lib32/libstdc++.so \
--lpthread -l:ld-linux.so.2 -Wl,--version-script=../../devtools/version_script.linux.txt
+-lpthread -l:ld-linux.so.2 -Wl,--version-script=../../devtools/version_script.linux.txt \
+\
+>> ../../../link.log 2>&1
 
