@@ -121,6 +121,7 @@ build_tf2()
 
         # bitmap.a
         #
+        echo "\n\nbuilding: bitmap.a\n\n"
         cd $tf2_src/bitmap
         make -f bitmap_linux32.mak rebuild
         mv bitmap.a $tf2_src/lib/public/linux32
@@ -128,6 +129,7 @@ build_tf2()
 
         # choreoobjects.a
         #
+        echo "\n\nbuilding: choreoobjects.a\n\n"
         cd $tf2_src/choreoobjects
         make -f choreoobjects_linux32.mak rebuild
         mv choreoobjects.a $tf2_src/lib/public/linux32
@@ -135,6 +137,7 @@ build_tf2()
 
         # dmxloader.a
         # 
+        echo "\n\nbuilding: dmxloader.a\n\n"
         cd $tf2_src/dmxloader
         make -f dmxloader_linux32.mak rebuild
         mv dmxloader.a $tf2_src/lib/public/linux32
@@ -142,6 +145,7 @@ build_tf2()
 
         # mathlib.a
         #
+        echo "\n\nbuilding: mathlib.a\n\n"
         cd $tf2_src/mathlib
         make -f mathlib_linux32.mak rebuild
         mv mathlib.a $tf2_src/lib/public/linux32
@@ -149,6 +153,7 @@ build_tf2()
 
         # particles.a
         #
+        echo "\n\nbuilding: particles.a\n\n"
         cd $tf2_src/particles
         make -f particles_linux32.mak rebuild
         mv particles.a $tf2_src/lib/public/linux32
@@ -156,6 +161,7 @@ build_tf2()
 
         # replay_common.a
         #
+        echo "\n\nbuilding: replay_common.a\n\n"
         cd $tf2_src/replay/common
         make -f replay_common_linux32.mak rebuild
         mv replay_common.a $tf2_src/lib/common/linux32
@@ -163,6 +169,7 @@ build_tf2()
 
         # replay.a
         #
+        echo "\n\nbuilding: replay.a\n\n"
         cd $tf2_src/replay
         make -f replay_linux32.mak rebuild
         mv replay.a $tf2_src/lib/public/linux32
@@ -170,6 +177,7 @@ build_tf2()
 
         # tier1.a
         #
+        echo "\n\nbuilding: tier1.a\n\n"
         cd $tf2_src/tier1
         make -f tier1_linux32.mak rebuild  >> $tf2_src/../build.log
         mv tier1.a $tf2_src/lib/public/linux32
@@ -177,6 +185,7 @@ build_tf2()
 
         # tier2.a
         #
+        echo "\n\nbuilding: tier2.a\n\n"
         cd $tf2_src/tier2
         make -f tier2_linux32.mak rebuild
         mv tier2.a $tf2_src/lib/public/linux32
@@ -184,6 +193,7 @@ build_tf2()
 
         # tier3.a
         #
+        echo "\n\nbuilding: tier3.a\n\n"
         cd $tf2_src/tier3
         make -f tier3_linux32.mak rebuild
         mv tier3.a $tf2_src/lib/public/linux32
@@ -191,6 +201,7 @@ build_tf2()
 
         # matsys.a
         #
+        echo "\n\nbuilding: matsys.a\n\n"
         cd $tf2_src/vgui2/matsys_controls
         make -f matsys_controls_linux32.mak rebuild
         mv matsys_controls.a $tf2_src/lib/public/linux32
@@ -198,6 +209,7 @@ build_tf2()
 
         # vgui_controls.a
         #
+        echo "\n\nbuilding: vgui_controls.a\n\n"
         cd $tf2_src/vgui2/vgui_controls
         make -f vgui_controls_linux32.mak rebuild
         mv vgui_controls.a $tf2_src/lib/public/linux32
@@ -205,6 +217,7 @@ build_tf2()
 
         # vtf.a
         #
+        echo "\n\nbuilding: vtf.a\n\n"
         cd $tf2_src/vtf
         make -f vtf_linux32.mak rebuild
         mv vtf.a $tf2_src/lib/public/linux32
@@ -212,6 +225,7 @@ build_tf2()
 
         # gcsdk.a
         #
+        echo "\n\nbuilding: gcsdk.a\n\n"
         cd $tf2_src/gcsdk
         make -f gcsdk_linux32.mak rebuild
         mv gcsdk.a $tf2_src/lib/public/linux32
@@ -219,6 +233,7 @@ build_tf2()
 
         # libtier0.so
         #
+        echo "\n\nbuilding: libtier0.a\n\n"
         cd $tf2_src/tier0
         make -f tier0_linux32.mak rebuild
         mv obj_tier0_linux32/debug/libtier0.so $tf2_src/lib/public/linux32
@@ -226,6 +241,7 @@ build_tf2()
 
         # libvstdlib.so
         #
+        echo "\n\nbuilding: libvstdlib.a\n\n"
         cd $tf2_src/vstdlib
         make -f vstdlib_linux32.mak rebuild
         mv obj_vstdlib_linux32/debug/libvstdlib.so $tf2_src/lib/public/linux32
@@ -233,6 +249,7 @@ build_tf2()
 
         # vpklib.a
         #
+        echo "\n\nbuilding: vpklib.a\n\n"
         cd $tf2_src/vpklib
         make -f vpklib_linux32.mak rebuild
         mv vpklib.a $tf2_src/lib/public/linux32
