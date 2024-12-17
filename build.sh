@@ -121,139 +121,139 @@ build_tf2()
 
         # bitmap.a
         #
-        echo "\n\nbuilding: bitmap.a\n\n"
+        echo -e  "\n\nbuilding: bitmap.a\n\n"
         cd $tf2_src/bitmap
         make -f bitmap_linux32.mak rebuild
         mv bitmap.a $tf2_src/lib/public/linux32
-        echo "done: bitmap.a" >> $tf2_src/../build.log
+        echo -e  "done: bitmap.a" >> $tf2_src/../build.log
 
         # choreoobjects.a
         #
-        echo "\n\nbuilding: choreoobjects.a\n\n"
+        echo -e  "\n\nbuilding: choreoobjects.a\n\n"
         cd $tf2_src/choreoobjects
         make -f choreoobjects_linux32.mak rebuild
         mv choreoobjects.a $tf2_src/lib/public/linux32
-        echo "done: choreoobjects.a" >> $tf2_src/../build.log
+        echo -e  "done: choreoobjects.a" >> $tf2_src/../build.log
 
         # dmxloader.a
         # 
-        echo "\n\nbuilding: dmxloader.a\n\n"
+        echo -e  "\n\nbuilding: dmxloader.a\n\n"
         cd $tf2_src/dmxloader
         make -f dmxloader_linux32.mak rebuild
         mv dmxloader.a $tf2_src/lib/public/linux32
-        echo "done: dmxloader.a" >> $tf2_src/../build.log
+        echo -e  "done: dmxloader.a" >> $tf2_src/../build.log
 
         # mathlib.a
         #
-        echo "\n\nbuilding: mathlib.a\n\n"
+        echo -e  "\n\nbuilding: mathlib.a\n\n"
         cd $tf2_src/mathlib
         make -f mathlib_linux32.mak rebuild
         mv mathlib.a $tf2_src/lib/public/linux32
-        echo "done: mathlib.a" >> $tf2_src/../build.log
+        echo -e  "done: mathlib.a" >> $tf2_src/../build.log
 
         # particles.a
         #
-        echo "\n\nbuilding: particles.a\n\n"
+        echo -e  "\n\nbuilding: particles.a\n\n"
         cd $tf2_src/particles
         make -f particles_linux32.mak rebuild
         mv particles.a $tf2_src/lib/public/linux32
-        echo "done: particles.a" >> $tf2_src/../build.log
+        echo -e  "done: particles.a" >> $tf2_src/../build.log
 
         # replay_common.a
         #
-        echo "\n\nbuilding: replay_common.a\n\n"
+        echo -e  "\n\nbuilding: replay_common.a\n\n"
         cd $tf2_src/replay/common
         make -f replay_common_linux32.mak rebuild
         mv replay_common.a $tf2_src/lib/common/linux32
-        echo "done: replay_common.a" >> $tf2_src/../build.log
+        echo -e  "done: replay_common.a" >> $tf2_src/../build.log
 
         # replay.a
         #
-        echo "\n\nbuilding: replay.a\n\n"
+        echo -e  "\n\nbuilding: replay.a\n\n"
         cd $tf2_src/replay
         make -f replay_linux32.mak rebuild
         mv replay.a $tf2_src/lib/public/linux32
-        echo "done: replay.a" >> $tf2_src/../build.log
+        echo -e  "done: replay.a" >> $tf2_src/../build.log
 
         # tier1.a
         #
-        echo "\n\nbuilding: tier1.a\n\n"
+        echo -e  "\n\nbuilding: tier1.a\n\n"
         cd $tf2_src/tier1
         make -f tier1_linux32.mak rebuild  >> $tf2_src/../build.log
         mv tier1.a $tf2_src/lib/public/linux32
-        echo "done: tier1.a" >> $tf2_src/../build.log
+        echo -e  "done: tier1.a" >> $tf2_src/../build.log
 
         # tier2.a
         #
-        echo "\n\nbuilding: tier2.a\n\n"
+        echo -e  "\n\nbuilding: tier2.a\n\n"
         cd $tf2_src/tier2
         make -f tier2_linux32.mak rebuild
         mv tier2.a $tf2_src/lib/public/linux32
-        echo "done: tier2.a" >> $tf2_src/../build.log
+        echo -e  "done: tier2.a" >> $tf2_src/../build.log
 
         # tier3.a
         #
-        echo "\n\nbuilding: tier3.a\n\n"
+        echo -e  "\n\nbuilding: tier3.a\n\n"
         cd $tf2_src/tier3
         make -f tier3_linux32.mak rebuild
         mv tier3.a $tf2_src/lib/public/linux32
-        echo "done: tier3.a" >> $tf2_src/../build.log
+        echo -e  "done: tier3.a" >> $tf2_src/../build.log
 
         # matsys.a
         #
-        echo "\n\nbuilding: matsys.a\n\n"
+        echo -e  "\n\nbuilding: matsys.a\n\n"
         cd $tf2_src/vgui2/matsys_controls
         make -f matsys_controls_linux32.mak rebuild
         mv matsys_controls.a $tf2_src/lib/public/linux32
-        echo "done: matsys_controls.a" >> $tf2_src/../build.log
+        echo -e  "done: matsys_controls.a" >> $tf2_src/../build.log
 
         # vgui_controls.a
         #
-        echo "\n\nbuilding: vgui_controls.a\n\n"
+        echo -e  "\n\nbuilding: vgui_controls.a\n\n"
         cd $tf2_src/vgui2/vgui_controls
         make -f vgui_controls_linux32.mak rebuild
         mv vgui_controls.a $tf2_src/lib/public/linux32
-        echo "done: vgui_controls.a" >> $tf2_src/../build.log
+        echo -e  "done: vgui_controls.a" >> $tf2_src/../build.log
 
         # vtf.a
         #
-        echo "\n\nbuilding: vtf.a\n\n"
+        echo -e  "\n\nbuilding: vtf.a\n\n"
         cd $tf2_src/vtf
         make -f vtf_linux32.mak rebuild
         mv vtf.a $tf2_src/lib/public/linux32
-        echo "done: vtf.a" >> $tf2_src/../build.log
+        echo -e  "done: vtf.a" >> $tf2_src/../build.log
 
         # gcsdk.a
         #
-        echo "\n\nbuilding: gcsdk.a\n\n"
+        echo -e  "\n\nbuilding: gcsdk.a\n\n"
         cd $tf2_src/gcsdk
         make -f gcsdk_linux32.mak rebuild
         mv gcsdk.a $tf2_src/lib/public/linux32
-        echo "done: gcsdk.a" >> $tf2_src/../build.log
+        echo -e  "done: gcsdk.a" >> $tf2_src/../build.log
 
         # libtier0.so
         #
-        echo "\n\nbuilding: libtier0.a\n\n"
+        echo -e  "\n\nbuilding: libtier0.a\n\n"
         cd $tf2_src/tier0
         make -f tier0_linux32.mak rebuild
         mv obj_tier0_linux32/debug/libtier0.so $tf2_src/lib/public/linux32
-        echo "done: libtier0.so" >> $tf2_src/../build.log
+        echo -e  "done: libtier0.so" >> $tf2_src/../build.log
 
         # libvstdlib.so
         #
-        echo "\n\nbuilding: libvstdlib.a\n\n"
+        echo -e  "\n\nbuilding: libvstdlib.a\n\n"
         cd $tf2_src/vstdlib
         make -f vstdlib_linux32.mak rebuild
         mv obj_vstdlib_linux32/debug/libvstdlib.so $tf2_src/lib/public/linux32
-        echo "done: libvstdlib.so" >> $tf2_src/../build.log
+        echo -e  "done: libvstdlib.so" >> $tf2_src/../build.log
 
         # vpklib.a
         #
-        echo "\n\nbuilding: vpklib.a\n\n"
+        echo -e  "\n\nbuilding: vpklib.a\n\n"
         cd $tf2_src/vpklib
         make -f vpklib_linux32.mak rebuild
         mv vpklib.a $tf2_src/lib/public/linux32
-        echo "done: vpklib.a" >> $tf2_src/../build.log
+        echo -e  "done: vpklib.a" >> $tf2_src/../build.log
 
         echo "\ndone.\n" >> $tf2_src/../build.log
     } # build_libs()
@@ -287,7 +287,7 @@ build_tf2()
         # build client
         # 
         echo -e "\n\nbuilding client.so...\n" >> $tf2_src/../build.log
-        make -f client_linux32_tf.mak CXXFLAGS="-w" rebuild >> $tf2_src/../build.log
+        make -f client_linux32_tf.mak rebuild >> $tf2_src/../build.log
     } # build_client()
     
     echo -e "\n\nBuild client.so? (1) to yes, anything else to continue."
