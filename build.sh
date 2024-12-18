@@ -7,7 +7,7 @@ perform_deep_clean()
 }
 
 clear 
-echo -e "perform deep clean? (1) to yes, anything else to continue...\n"
+echo -e "Do you want a deep clean (purging junk from previous build)? (1) To yes, anything else to continue...\n"
 read -n 1 should_deep_clean
 
 if [[ "$should_deep_clean" == 1 ]]; then
@@ -16,9 +16,11 @@ if [[ "$should_deep_clean" == 1 ]]; then
     #
     perform_deep_clean
 
+    echo -e "Deep cleaning SRC from previous build artifacts: done" >> build.log
+
 else 
 
-    echo -e "\nuser skipped deep cleaning..."
+    echo -e "\nUser skipped deep cleaning..."
 
 fi
 
@@ -29,7 +31,7 @@ tf2_src=$(pwd)/tf2_src
 echo -e "---------------------------------tf2linux build log---------------------------------" > build.log
 date >> build.log
 echo -e "------------------------------------------------------------------------------------\n" >> build.log
-echo -e "deep cleaning repo - done" >> build.log
+
 
 
 ##################################################################################################
@@ -42,7 +44,7 @@ build_tf2()
     ##################################################################################################
     build_protobuf()
     {
-        echo -e "\nbuilding libprotobuf...\n" >> $tf2_src/../build.log
+        echo -e "\nBuilding 3rd party libprotobuf...\n" >> $tf2_src/../build.log
 
         # entering thirdparty dir
         #
@@ -97,7 +99,7 @@ build_tf2()
     }   # build_protobuf()
 
     clear 
-    echo -e "\nBuild protobuf? (1) to yes, anything else to continue."
+    echo -e "\nBuild 3rd party Google Protobuf (2.6.1) from SRC? All tests will run implicitly. See the log for results. (1) To yes, anything else to continue."
     read -n 1 should_build_protobuf
 
     if [[ "$should_build_protobuf" == "1" ]]; then
@@ -117,11 +119,11 @@ build_tf2()
     ##################################################################################################
     build_libs()
     {
-        echo -e "\nbuilding game libraries...\n" >> $tf2_src/../build.log
+        echo -e "\nBuilding game libraries... This could take some time.\n" >> $tf2_src/../build.log
 
         # bitmap.a
         #
-        echo -e  "\n\nbuilding: bitmap.a\n\n"
+        echo -e  "\n\nCurrently building: bitmap.a\n\n"
         cd $tf2_src/bitmap
         make -f bitmap_linux32.mak rebuild
         mv bitmap.a $tf2_src/lib/public/linux32
@@ -129,7 +131,7 @@ build_tf2()
 
         # choreoobjects.a
         #
-        echo -e  "\n\nbuilding: choreoobjects.a\n\n"
+        echo -e  "\n\nCurrently building: choreoobjects.a\n\n"
         cd $tf2_src/choreoobjects
         make -f choreoobjects_linux32.mak rebuild
         mv choreoobjects.a $tf2_src/lib/public/linux32
@@ -137,7 +139,7 @@ build_tf2()
 
         # dmxloader.a
         # 
-        echo -e  "\n\nbuilding: dmxloader.a\n\n"
+        echo -e  "\n\nCurrently building: dmxloader.a\n\n"
         cd $tf2_src/dmxloader
         make -f dmxloader_linux32.mak rebuild
         mv dmxloader.a $tf2_src/lib/public/linux32
@@ -145,7 +147,7 @@ build_tf2()
 
         # mathlib.a
         #
-        echo -e  "\n\nbuilding: mathlib.a\n\n"
+        echo -e  "\n\nCurrently building: mathlib.a\n\n"
         cd $tf2_src/mathlib
         make -f mathlib_linux32.mak rebuild
         mv mathlib.a $tf2_src/lib/public/linux32
@@ -153,7 +155,7 @@ build_tf2()
 
         # particles.a
         #
-        echo -e  "\n\nbuilding: particles.a\n\n"
+        echo -e  "\n\nCurrently building: particles.a\n\n"
         cd $tf2_src/particles
         make -f particles_linux32.mak rebuild
         mv particles.a $tf2_src/lib/public/linux32
@@ -161,7 +163,7 @@ build_tf2()
 
         # replay_common.a
         #
-        echo -e  "\n\nbuilding: replay_common.a\n\n"
+        echo -e  "\n\nCurrently building: replay_common.a\n\n"
         cd $tf2_src/replay/common
         make -f replay_common_linux32.mak rebuild
         mv replay_common.a $tf2_src/lib/common/linux32
@@ -169,7 +171,7 @@ build_tf2()
 
         # replay.a
         #
-        echo -e  "\n\nbuilding: replay.a\n\n"
+        echo -e  "\n\nCurrently building: replay.a\n\n"
         cd $tf2_src/replay
         make -f replay_linux32.mak rebuild
         mv replay.a $tf2_src/lib/public/linux32
@@ -177,7 +179,7 @@ build_tf2()
 
         # tier1.a
         #
-        echo -e  "\n\nbuilding: tier1.a\n\n"
+        echo -e  "\n\nCurrently building: tier1.a\n\n"
         cd $tf2_src/tier1
         make -f tier1_linux32.mak rebuild  >> $tf2_src/../build.log
         mv tier1.a $tf2_src/lib/public/linux32
@@ -185,7 +187,7 @@ build_tf2()
 
         # tier2.a
         #
-        echo -e  "\n\nbuilding: tier2.a\n\n"
+        echo -e  "\n\nCurrently building: tier2.a\n\n"
         cd $tf2_src/tier2
         make -f tier2_linux32.mak rebuild
         mv tier2.a $tf2_src/lib/public/linux32
@@ -193,7 +195,7 @@ build_tf2()
 
         # tier3.a
         #
-        echo -e  "\n\nbuilding: tier3.a\n\n"
+        echo -e  "\n\nCurrently building: tier3.a\n\n"
         cd $tf2_src/tier3
         make -f tier3_linux32.mak rebuild
         mv tier3.a $tf2_src/lib/public/linux32
@@ -201,7 +203,7 @@ build_tf2()
 
         # matsys.a
         #
-        echo -e  "\n\nbuilding: matsys.a\n\n"
+        echo -e  "\n\nCurrently building: matsys.a\n\n"
         cd $tf2_src/vgui2/matsys_controls
         make -f matsys_controls_linux32.mak rebuild
         mv matsys_controls.a $tf2_src/lib/public/linux32
@@ -209,7 +211,7 @@ build_tf2()
 
         # vgui_controls.a
         #
-        echo -e  "\n\nbuilding: vgui_controls.a\n\n"
+        echo -e  "\n\nCurrently building: vgui_controls.a\n\n"
         cd $tf2_src/vgui2/vgui_controls
         make -f vgui_controls_linux32.mak rebuild
         mv vgui_controls.a $tf2_src/lib/public/linux32
@@ -217,7 +219,7 @@ build_tf2()
 
         # vtf.a
         #
-        echo -e  "\n\nbuilding: vtf.a\n\n"
+        echo -e  "\n\nCurrently building: vtf.a\n\n"
         cd $tf2_src/vtf
         make -f vtf_linux32.mak rebuild
         mv vtf.a $tf2_src/lib/public/linux32
@@ -225,7 +227,7 @@ build_tf2()
 
         # gcsdk.a
         #
-        echo -e  "\n\nbuilding: gcsdk.a\n\n"
+        echo -e  "\n\nCurrently building: gcsdk.a\n\n"
         cd $tf2_src/gcsdk
         make -f gcsdk_linux32.mak rebuild
         mv gcsdk.a $tf2_src/lib/public/linux32
@@ -233,7 +235,7 @@ build_tf2()
 
         # libtier0.so
         #
-        echo -e  "\n\nbuilding: libtier0.a\n\n"
+        echo -e  "\n\nCurrently building: libtier0.a\n\n"
         cd $tf2_src/tier0
         make -f tier0_linux32.mak rebuild
         mv obj_tier0_linux32/debug/libtier0.so $tf2_src/lib/public/linux32
@@ -241,7 +243,7 @@ build_tf2()
 
         # libvstdlib.so
         #
-        echo -e  "\n\nbuilding: libvstdlib.a\n\n"
+        echo -e  "\n\nCurrently building: libvstdlib.a\n\n"
         cd $tf2_src/vstdlib
         make -f vstdlib_linux32.mak rebuild
         mv obj_vstdlib_linux32/debug/libvstdlib.so $tf2_src/lib/public/linux32
@@ -249,7 +251,7 @@ build_tf2()
 
         # vpklib.a
         #
-        echo -e  "\n\nbuilding: vpklib.a\n\n"
+        echo -e  "\n\nCurrently building: vpklib.a\n\n"
         cd $tf2_src/vpklib
         make -f vpklib_linux32.mak rebuild
         mv vpklib.a $tf2_src/lib/public/linux32
@@ -270,7 +272,7 @@ build_tf2()
 
     else
 
-        echo -e "\nuser skipped game libs...\n";
+        echo -e "\nUser skipped build game libraries from SRC...\n";
 
     fi
 
@@ -281,16 +283,16 @@ build_tf2()
     {
         # entering client dir
         #
-        echo "entering client dir..."
+        echo "Entering client dir..."
         cd $tf2_src/game/client
 
         # build client
         # 
-        echo -e "\n\nbuilding client.so...\n" >> $tf2_src/../build.log
+        echo -e "\n\nBuilding client.so (tf2, jungle_inferno, debug)...\n" >> $tf2_src/../build.log
         make -f client_linux32_tf.mak rebuild >> $tf2_src/../build.log
     } # build_client()
     
-    echo -e "\n\nBuild client.so? (1) to yes, anything else to continue."
+    echo -e "\n\nBuild client.so from SRC? (1) To yes, anything else to continue."
     read -n 1 should_build_client_tf
 
     if [[ "$should_build_client_tf" == "1" ]]; then
@@ -311,26 +313,26 @@ build_tf2()
 ##################################################################################################
 vpc_projgen()
 {
-    echo -e "\Projgen initiated by user... Resetting all make files to defaults."    
+    echo -e "\RESET SRC initiated by user... Resetting all SRC files to defaults..."    
     echo -e "\n\nbuilding vpc projgen...\n" >> $tf2_src/../build.log
 
     # clear log for registering current build log
     #
-    echo "clearing log file..."
+    echo "Clearing log file..."
     touch build.log
     > build.log 
 
     # build vpc build
     #
-    echo -e "\nbuilding vpc - please wait..."
+    echo -e "\nBuilding Valve Project Generator tool (VPC) from SRC - Please wait..."
     make -C $(pwd)/tf2_src/external/vpc/utils/vpc >> /dev/null
 
     # generate launcher, launcher_main, engine, and game projects
     #
-    echo "entering vpc directory..."
+    echo "Entering vpc directory..."
     cd tf2_src/devtools/bin
 
-    echo -e "\n\nlaunching vpc to generate projects...\n" >> $tf2_src/../build.log
+    echo -e "\n\nLaunching vpc to generate projects...\n" >> $tf2_src/../build.log
 
     ./vpc_linux /v +launcher >> $tf2_src/../build.log
     ./vpc_linux /v +launcher_main >> $tf2_src/../build.log
@@ -339,7 +341,7 @@ vpc_projgen()
 
     # generate additional dependency projects
     #
-    echo "generating additional dependency projects..."
+    echo "Generating additional dependency projects..."
     ./vpc_linux /v +bitmap >> $tf2_src/../build.log
     ./vpc_linux /v +choreoobjects >> $tf2_src/../build.log
     ./vpc_linux /v +dmxloader >> $tf2_src/../build.log
@@ -357,19 +359,19 @@ vpc_projgen()
     ./vpc_linux /v +tier0 >> $tf2_src/../build.log
     ./vpc_linux /v +vstdlib >> $tf2_src/../build.log
 
-    echo -e "\nfinished generating projects..."
-    echo "leaving vpc directory..."
+    echo -e "\nFinished generating projects..."
+    echo "Leaving VPC directory..."
 
     cd ../../../
 
     # build summary: 
     #
     echo -e "\nbuild.log summary: \n"
-    echo "total errors: "; cat build.log | grep error -i | wc -l
-    echo "total warnings: "; cat build.log | grep warning -i | wc -l
-    echo -e "\nerror details: \n"; cat build.log | grep error -i -B1
+    echo "Total errors: "; cat build.log | grep error -i | wc -l
+    echo "Total warnings: "; cat build.log | grep warning -i | wc -l
+    echo -e "\nError details: \n"; cat build.log | grep error -i -B1
 
-    echo -e "\ndone."
+    echo -e "\nDone."
 }
 
 ##################################################################################################
@@ -379,7 +381,7 @@ vpc_projgen()
 # display warning message
 #
 clear
-echo -e "1.) to start BUILD ALL press (1)\n2.) to init RESET ALL make files, press (2)\n\nWARNING: if you regen all make files, the build may become broken\n\n"
+echo -e "1.) To start BUILD ALL press (1)\n2.) To RESET SRC, press (2)\n\nWARNING: If you RESET SRC, you will have all Projects regenerated. This is not recommended, as it will 100% break the build on this branch. This is only recommended if you want to start with the original state of the SRC + have all VPC projects generated as originally Valve intended.\n\n"
 read -n 1 should_build_tf
 
 if [[ "$should_build_tf" == "1" ]]; then
@@ -390,12 +392,23 @@ if [[ "$should_build_tf" == "1" ]]; then
 
 elif [[ "$should_build_tf" == "2" ]]; then
 
-    # regen
+    # regen?
     #
-    vpc_projgen
+    echo -e "Are you sure? (y/n) \n"
+    read -n 1 user_vpc_regen_projects
+
+    if [[ "$user_vpc_regen_projects" == "y" ]]; then
+
+        vpc_projgen
+
+    else 
+
+        echo "Canceled."
+
+    fi
 
 else
 
-    echo "exiting..."
+    echo "Exiting..."
 
 fi

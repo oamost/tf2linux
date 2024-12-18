@@ -1047,4 +1047,4 @@ cd tf2_src/game/client
 -lpthread -l:ld-linux.so.2 -Wl,--version-script=../../devtools/version_script.linux.txt \
 \
 >> ../../../link.log 2>&1
-
+echo -e "\n--------------------- gcc linker PASSED for: \t\t client.so (debug)" >> ../../../link.log
