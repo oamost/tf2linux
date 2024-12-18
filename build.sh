@@ -65,7 +65,7 @@ build_tf2()
         ./configure --enable-static=yes --disable-shared --enable-silent-rules
 
         make clean
-        make CXXFLAGS="-m32 -w" >> $tf2_src/../build.log
+        make CXXFLAGS="-m32 -D_GLIBCXX_USE_CXX11_ABI=0 -w" >> $tf2_src/../build.log
         sudo make install CXXFLAGS="-m32 -w" >> $tf2_src/../build.log
 
         echo "protobuf build completed. running tests. please wait..."

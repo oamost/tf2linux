@@ -14,7 +14,7 @@ cd tf2_src/game/client
 -DPROJECTDIR=/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client -D_DLL_EXT=.so \
 -DSOURCE1=1 -DVPCGAME=valve -D_LINUX=1 -D_POSIX=1 -DLINUX=1 -DPOSIX=1  -D_GLIBCXX_USE_CXX11_ABI=0 -DVPROF_LEVEL=1 -DGNUC -DNO_HOOK_MALLOC \
 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/protobuf-2.6.1/src \
+-I/usr/local/include/google/protobuf/ \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2 \
@@ -58,7 +58,7 @@ cd tf2_src/game/client
 -D_DLL_EXT=.so -DSOURCE1=1 -DVPCGAME=valve -D_LINUX=1 -D_POSIX=1 -DLINUX=1 -DPOSIX=1  -D_GLIBCXX_USE_CXX11_ABI=0 -DVPROF_LEVEL=1 -DGNUC -DNO_HOOK_MALLOC \
 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/protobuf-2.6.1/src \
+-I/usr/local/include/google/protobuf/ \
 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2 \
 -I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2/elements \
@@ -1015,7 +1015,7 @@ cd tf2_src/game/client
 ./obj_client_tf_linux32/debug/weapon_selection.o \
 ./obj_client_tf_linux32/debug/WorldDimsProxy.o \
 \
-../../thirdparty/protobuf-2.6.1/bin/linux32/libprotobuf.a \
+/usr/local/lib/libprotobuf.a \
 \
 ../../lib/public/linux32/tier1.a \
 ../../lib/common/linux32/replay_common.a \
@@ -1043,7 +1043,7 @@ cd tf2_src/game/client
 -L../../lib/public/linux32 -ltier0 \
 -L../../lib/public/linux32 -lvstdlib \
 -L../../lib/public/linux32 -lsteam_api \
--L../../lib/public/linux32 -lsteamnetworkingsockets  -lrt  -Wl,--end-group -lm -ldl /usr/lib/gcc/x86_64-pc-linux-gnu/14.1.1/../../../../lib32/libstdc++.so \
+-L../../lib/public/linux32 -lsteamnetworkingsockets  -lrt  -Wl,--end-group -lm -ldl /usr/lib/gcc/x86_64-pc-linux-gnu/$(gcc --version | head -n 1 | awk '{print $3}')/../../../../lib32/libstdc++.so \
 -lpthread -l:ld-linux.so.2 -Wl,--version-script=../../devtools/version_script.linux.txt \
 \
 >> ../../../link.log 2>&1
