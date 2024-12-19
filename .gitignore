@@ -10,6 +10,7 @@ build.log
 
 # libraries
 #
+tf2_src/lib/public/linux32/appframework.a
 tf2_src/lib/public/linux32/bitmap.a
 tf2_src/lib/public/linux32/choreoobjects.a
 tf2_src/lib/public/linux32/dmxloader.a
