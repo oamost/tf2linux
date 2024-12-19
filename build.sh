@@ -1,3 +1,7 @@
+# src root
+#
+tf2_src=$(pwd)/tf2_src
+
 # clean repo + init log
 #
 perform_deep_clean()
@@ -24,10 +28,6 @@ else
 
 fi
 
-# src root
-#
-tf2_src=$(pwd)/tf2_src
-
 echo -e "---------------------------------tf2linux build log---------------------------------" > build.log
 date >> build.log
 echo -e "------------------------------------------------------------------------------------\n" >> build.log
@@ -35,12 +35,12 @@ echo -e "-----------------------------------------------------------------------
 
 
 ##################################################################################################
-#                                       BUILD TF2
+#                                       BUILD TF2 JUNGLE INFERNO DEBUG X86 (https://steamdb.info/app/440/depots/?branch=pre_jungleinferno_demos)
 ##################################################################################################
 build_tf2() 
 {
     ##################################################################################################
-    #                                       BUILD PROTOBUF
+    #                                       BUILD 3rd PARTY GOOGLE PROTOBUF
     ##################################################################################################
     build_protobuf()
     {
@@ -115,7 +115,7 @@ build_tf2()
     fi
 
     ##################################################################################################
-    #                                       BUILD LIBRARIES
+    #                                       BUILD GAME LIBRARIES
     ##################################################################################################
     build_libs()
     {
@@ -277,23 +277,23 @@ build_tf2()
     fi
 
     ##################################################################################################
-    #                                       BUILD CLIENT
+    #                                       BUILD GAME binaries
     ##################################################################################################
     build_client()
     {
         # entering client dir
         #
-        echo "Entering client dir..."
+        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
         cd $tf2_src/game/client
 
         # build client
         # 
-        echo -e "\nBuilding client.so...\n" >> $tf2_src/../build.log
+        echo -e "\nBuilding binaries for client... \n" >> $tf2_src/../build.log
         make -f client_linux32_tf.mak rebuild >> $tf2_src/../build.log
     } # build_client()
     
     clear
-    echo -e "\nBuild client.so (tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
+    echo -e "\nBuild client binaries (client.so, tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
     read -n 1 should_build_client_tf
 
     if [[ "$should_build_client_tf" == "1" ]]; then
@@ -304,13 +304,13 @@ build_tf2()
 
     else
 
-        echo -e "\nUser skipped client.so...\n";
+        echo -e "\nUser skipped client binaries...\n";
 
     fi
 }
 
 ##################################################################################################
-#                                       VPC PROJGEN
+#                                       VALVE PROJECT GENERATOR (VPC) tool runner (VALVE DEFAULTS)
 ##################################################################################################
 vpc_projgen()
 {

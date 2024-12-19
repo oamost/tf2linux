@@ -1,8 +1,21 @@
+# repo
+
+tf2linux=$(pwd)
+
+# src root
+#
+tf2_src=$(pwd)/tf2_src
+
 echo -e "---------------------------------tf2linux linker log---------------------------------" > link.log
 date >> link.log
 echo -e "------------------------------------------------------------------------------------\n" >> link.log
 
-echo -e "\n--------------------- gcc linker STARTED for: \t\t client.so (debug)" >> ../../../link.log
+##################################################################################################################
+######################                          LINK client binaries                     ###############################################################
+##################################################################################################################
+
+echo "Started linking: client binaries (client.so) - please wait..."
+echo -e "--------------------- gcc linker STARTED for: \t\t client binaries (client.so, debug)\n" >> link.log
 
 cd tf2_src/game/client
 
@@ -13,35 +26,35 @@ cd tf2_src/game/client
 -DDEV_BUILD -DFRAME_POINTER_OMISSION_DISABLED -DREPLAY_ENABLED -DNO_STRING_T -DCLIENT_DLL -DVECTOR -DVERSION_SAFE_STEAM_API_INTERFACES -DPROTECTED_THINGS_ENABLE \
 -Dstrncpy=use_Q_strncpy_instead -D_snprintf=use_Q_snprintf_instead -DUSE_WEBM_FOR_REPLAY -DUSES_ECON_ITEMS -DTF_CLIENT_DLL -DUSES_ECON_ITEMS -DENABLE_GC_MATCHMAKING \
 -DGLOWS_ENABLE -DUSE_DYNAMIC_ASSET_LOADING -DSIXENSE -DVOTING_ENABLED -DNEXT_BOT -D_EXTERNAL_DLL_EXT=.so -DVPCGAMECAPS=VALVE \
--DPROJECTDIR=/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client -D_DLL_EXT=.so \
+-DPROJECTDIR=$tf2_src/game/client -D_DLL_EXT=.so \
 -DSOURCE1=1 -DVPCGAME=valve -D_LINUX=1 -D_POSIX=1 -DLINUX=1 -DPOSIX=1  -D_GLIBCXX_USE_CXX11_ABI=0 -DVPROF_LEVEL=1 -DGNUC -DNO_HOOK_MALLOC \
 \
 -I/usr/local/include/google/protobuf/ \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
+-I$tf2_src/game/client/generated_proto_tf \
 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2/elements \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/tf \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/tf/vgui \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/statemachine \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared/multiplayer \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared/tf \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/gcsdk/steamextra \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/common \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public/tier0 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public/tier1 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/SDL2 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/vgui2/include \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/vgui2/controls \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/game_controls \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/sixensesdk/include \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared/econ \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/gcsdk/steamextra \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/econ \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/econ \
+-I$tf2_src/game/client/hl2 \
+-I$tf2_src/game/client/hl2/elements \
+-I$tf2_src/game/client/tf \
+-I$tf2_src/game/client/tf/vgui \
+-I$tf2_src/game/statemachine \
+-I$tf2_src/game/shared/multiplayer \
+-I$tf2_src/game/shared/tf \
+-I$tf2_src/gcsdk/steamextra \
+-I$tf2_src/game/client \
+-I$tf2_src/common \
+-I$tf2_src/public \
+-I$tf2_src/public/tier0 \
+-I$tf2_src/public/tier1 \
+-I$tf2_src/thirdparty/SDL2 \
+-I$tf2_src/vgui2/include \
+-I$tf2_src/vgui2/controls \
+-I$tf2_src/game/shared \
+-I$tf2_src/game/client/game_controls \
+-I$tf2_src/thirdparty/sixensesdk/include \
+-I$tf2_src/game/shared/econ \
+-I$tf2_src/gcsdk/steamextra \
+-I$tf2_src/game/client/econ \
+-I$tf2_src/game/client/econ \
 \
 -Wall -Wno-invalid-offsetof -Wno-multichar -Wno-overloaded-virtual -Wno-write-strings \
 -Wno-unused-variable -Wno-unused-function -Winvalid-pch -Wswitch -Wno-unknown-pragmas \
@@ -56,35 +69,35 @@ cd tf2_src/game/client
 -DPROTECTED_THINGS_ENABLE -Dstrncpy=use_Q_strncpy_instead -D_snprintf=use_Q_snprintf_instead -DUSE_WEBM_FOR_REPLAY \
 -DUSES_ECON_ITEMS -DTF_CLIENT_DLL -DUSES_ECON_ITEMS -DENABLE_GC_MATCHMAKING -DGLOWS_ENABLE -DUSE_DYNAMIC_ASSET_LOADING \
 -DSIXENSE -DVOTING_ENABLED -DNEXT_BOT -D_EXTERNAL_DLL_EXT=.so -DVPCGAMECAPS=VALVE \
--DPROJECTDIR=/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client \
+-DPROJECTDIR=$tf2_src/game/client \
 -D_DLL_EXT=.so -DSOURCE1=1 -DVPCGAME=valve -D_LINUX=1 -D_POSIX=1 -DLINUX=1 -DPOSIX=1  -D_GLIBCXX_USE_CXX11_ABI=0 -DVPROF_LEVEL=1 -DGNUC -DNO_HOOK_MALLOC \
 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/generated_proto_tf \
+-I$tf2_src/game/client/generated_proto_tf \
 -I/usr/local/include/google/protobuf/ \
 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/hl2/elements \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/tf \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/tf/vgui \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/statemachine \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared/multiplayer \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared/tf \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/gcsdk/steamextra \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/common \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public/tier0 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/public/tier1 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/SDL2 \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/vgui2/include \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/vgui2/controls \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/game_controls \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/thirdparty/sixensesdk/include \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/shared/econ \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/gcsdk/steamextra \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/econ \
--I/run/media/dt/5126d622-6bab-492e-9d3d-c8f1263ce69c/tf2linux/tf2_src/game/client/econ \
+-I$tf2_src/game/client/hl2 \
+-I$tf2_src/game/client/hl2/elements \
+-I$tf2_src/game/client/tf \
+-I$tf2_src/game/client/tf/vgui \
+-I$tf2_src/game/statemachine \
+-I$tf2_src/game/shared/multiplayer \
+-I$tf2_src/game/shared/tf \
+-I$tf2_src/gcsdk/steamextra \
+-I$tf2_src/game/client \
+-I$tf2_src/common \
+-I$tf2_src/public \
+-I$tf2_src/public/tier0 \
+-I$tf2_src/public/tier1 \
+-I$tf2_src/thirdparty/SDL2 \
+-I$tf2_src/vgui2/include \
+-I$tf2_src/vgui2/controls \
+-I$tf2_src/game/shared \
+-I$tf2_src/game/client/game_controls \
+-I$tf2_src/thirdparty/sixensesdk/include \
+-I$tf2_src/game/shared/econ \
+-I$tf2_src/gcsdk/steamextra \
+-I$tf2_src/game/client/econ \
+-I$tf2_src/game/client/econ \
 \
 -Wall -Wno-invalid-offsetof -Wno-multichar -Wno-overloaded-virtual -Wno-write-strings -Wno-unused-variable -Wno-unused-function \
 -Winvalid-pch -Wswitch -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-value -Wno-invalid-offsetof -Wno-float-equal -Wno-reorder -Werror=return-type \
@@ -1050,3 +1063,6 @@ cd tf2_src/game/client
 \
 >> ../../../link.log 2>&1
 echo -e "\n--------------------- gcc linker PASSED for: \t\t client.so (debug)" >> ../../../link.log
+mv $tf2_src/game/client/obj_client_tf_linux32/debug/client.* $tf2_src/../out_debug_x86
+echo -e "\n--------------------- build artifacts MOVED to: \t\t $tf2linux/out_debug_x86" >> ../../../link.log
+echo "Success..."

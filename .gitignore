@@ -1,12 +1,16 @@
-bin/build/*
-
+# logs
+#
 build.log
 link.log
 
+# object binaries
+#
 *.o
 *.d
 *.P
 
+# libraries
+#
 tf2_src/lib/public/linux32/bitmap.a
 tf2_src/lib/public/linux32/choreoobjects.a
 tf2_src/lib/public/linux32/dmxloader.a
@@ -36,3 +40,7 @@ tf2_src/tier0/obj_tier0_linux32/release
 !tf2_src/thirdparty/protobuf-2.6.1.tar.gz
 tf2_src/thirdparty/protobuf-2.6.1
 tf2_src/vstdlib/obj_vstdlib_linux32
+
+# shared binaries
+#
+out_debug_x86
