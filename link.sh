@@ -2,6 +2,8 @@ echo -e "---------------------------------tf2linux linker log-------------------
 date >> link.log
 echo -e "------------------------------------------------------------------------------------\n" >> link.log
 
+echo -e "\n--------------------- gcc linker STARTED for: \t\t client.so (debug)" >> ../../../link.log
+
 cd tf2_src/game/client
 
 /usr/bin/gcc \
