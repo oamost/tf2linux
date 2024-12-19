@@ -1,24 +1,13 @@
-**.** \
-**├── build.log**     &emsp;&emsp;&emsp;&ensp;                -build log \
-**├── build.sh**      &emsp;&emsp;&emsp;&ensp;&ensp;          -build script \
-**├── game**          &emsp;&emsp;&emsp;&emsp;&ensp;&ensp;    -jungle inferno branch binaries \
-**├── readme.md**     &emsp;&ensp;&ensp;                -documentation \
-**└── tf2_src**       &emsp;&emsp;&emsp;&emsp;          -source code
+#### checklist
 
-
-### the goal
-
-...is to be able to build, extend, test, and debug TF2's source code.
-
-### forked from
-
-https://github.com/OthmanAba/TeamFortress2.git
-
-### status
-
-~~`vpc` rework started~~ \
-~~`game` project generation started~~ \
-~~resolving vpc failed messages~~ \
-~~`client` build started~~ \
-`client` linker started
+~~`vpc` runtimefix: done~~ \
+~~`game` projgen: done~~ \
+~~`client` build: done~~ \
+~~`server` build: done~~ \
+~~`depot` launch from steam client on linux: fixed (tf2 pre jungle_inferno beta branch)~~ \
+`engine` build: in-progress \
+`launcher` build: todo \
+`launcher-main` build: todo \
+`gameui` build: todo \
+`autodeploy` : todo \
 
