@@ -261,7 +261,7 @@ build_tf2()
     } # build_libs()
 
     clear 
-    echo -e "\nBuild game libs? (1) to yes, anything else to continue."
+    echo -e "\nBuild game libraries (mathlib, particles, dmxloader etc.)? (1) to yes, anything else to continue."
     read -n 1 should_build_libs
 
     if [[ "$should_build_libs" == "1" ]]; then
@@ -288,11 +288,12 @@ build_tf2()
 
         # build client
         # 
-        echo -e "\n\nBuilding client.so (tf2, jungle_inferno, debug)...\n" >> $tf2_src/../build.log
+        echo -e "\nBuilding client.so...\n" >> $tf2_src/../build.log
         make -f client_linux32_tf.mak rebuild >> $tf2_src/../build.log
     } # build_client()
     
-    echo -e "\n\nBuild client.so from SRC? (1) To yes, anything else to continue."
+    clear
+    echo -e "\nBuild client.so (tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
     read -n 1 should_build_client_tf
 
     if [[ "$should_build_client_tf" == "1" ]]; then
@@ -303,7 +304,7 @@ build_tf2()
 
     else
 
-        echo -e "\nuser skipped client.so...\n";
+        echo -e "\nUser skipped client.so...\n";
 
     fi
 }
