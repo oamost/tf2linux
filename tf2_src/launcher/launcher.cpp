@@ -50,7 +50,7 @@
 #include "tier1/tier1.h"
 #include "tier2/tier2.h"
 #include "tier3/tier3.h"
-#include "p4lib/ip4.h"
+
 #include "inputsystem/iinputsystem.h"
 #include "filesystem/IQueuedLoader.h"
 #include "reslistgenerator.h"

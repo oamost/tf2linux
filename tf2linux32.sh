@@ -353,7 +353,7 @@ build_tf2()
 
     fi ######################## server
 
-    ######################## engine
+    ######################## source engine
     #
     build_engine()
     {
@@ -383,6 +383,68 @@ build_tf2()
         echo -e "\nUser skipped source engine binaries...\n";
 
     fi ######################## source engine
+
+    ######################## launcher-main
+    #
+    build_launcher_main()
+    {
+        # entering launcher-main dir
+        #
+        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
+        cd $tf2_src/launcher_main
+
+        # build launcher-main
+        # 
+        echo -e "\nBuilding binaries for launcher_main... \n" >> $tf2_src/../build.log
+        make -f launcher_main_linux32.mak rebuild >> $tf2_src/../build.log
+    } # build_launcher_main()
+
+    clear
+    echo -e "\nBuild launcher-main binaries (shared object) from SRC? (1) To yes, anything else to continue."
+    read -n 1 should_build_launcher_main
+
+    if [[ "$should_build_launcher_main" == "1" ]]; then
+
+        # build launcher-main binaries
+        #
+        build_launcher_main
+
+    else
+
+        echo -e "\nUser skipped launcher-main binaries...\n";
+
+    fi ######################## launcher-main
+
+    ######################## launcher
+    #
+    build_launcher()
+    {
+        # entering launcher dir
+        #
+        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
+        cd $tf2_src/launcher
+
+        # build launcher
+        # 
+        echo -e "\nBuilding binaries for launcher... \n" >> $tf2_src/../build.log
+        make -f launcher_linux32.mak rebuild >> $tf2_src/../build.log
+    } # build_launcher()
+
+    clear
+    echo -e "\nBuild launcher binaries (shared object) from SRC? (1) To yes, anything else to continue."
+    read -n 1 should_build_launcher
+
+    if [[ "$should_build_launcher" == "1" ]]; then
+
+        # build launcher binaries
+        #
+        build_launcher
+
+    else
+
+        echo -e "\nUser skipped launcher binaries...\n";
+
+    fi ######################## launcher
 
 } ##################### BUILD TF2 JUNGLE INFERNO DEBUG X86 (https://steamdb.info/app/440/depots/?branch=pre_jungleinferno_demos)
 
