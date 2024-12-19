@@ -121,6 +121,16 @@ build_tf2()
     {
         echo -e "\nBuilding game libraries... This could take some time.\n" >> $tf2_src/../build.log
 
+        # appframework.a
+        #
+        echo -e  "\n\nCurrently building: appframework.a\n\n"
+        cd $tf2_src/appframework
+        make -f appframework_linux32.mak rebuild
+        mv appframework.a $tf2_src/lib/public/linux32
+        echo -e  "done: appframework.a" >> $tf2_src/../build.log
+
+        echo "\ndone.\n" >> $tf2_src/../build.log
+
         # bitmap.a
         #
         echo -e  "\n\nCurrently building: bitmap.a\n\n"
@@ -258,6 +268,7 @@ build_tf2()
         echo -e  "done: vpklib.a" >> $tf2_src/../build.log
 
         echo "\ndone.\n" >> $tf2_src/../build.log
+
     } # build_libs()
 
     clear 
