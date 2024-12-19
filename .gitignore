@@ -55,6 +55,14 @@ tf2_src/game/server/obj_server_tf_linux32
 #
 tf2_src/engine/obj_engine_linux32
 
+# togl
+#
+tf2_src/togl/obj_togl_linux32
+
 # shared binaries
 #
 out_debug_x86
+
+# vscode
+#
+.vscode/settings.json

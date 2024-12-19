@@ -446,6 +446,37 @@ build_tf2()
 
     fi ######################## launcher
 
+    ######################## togl
+    #
+    build_togl()
+    {
+        # entering togl dir
+        #
+        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
+        cd $tf2_src/togl
+
+        # build togl
+        # 
+        echo -e "\nBuilding binaries for togl... \n" >> $tf2_src/../build.log
+        make -f togl_linux32.mak rebuild >> $tf2_src/../build.log
+    } # build_launcher()
+
+    clear
+    echo -e "\nBuild togl binaries (shared object) from SRC? (1) To yes, anything else to continue."
+    read -n 1 should_build_togl
+
+    if [[ "$should_build_togl" == "1" ]]; then
+
+        # build togl binaries
+        #
+        build_togl
+
+    else
+
+        echo -e "\nUser skipped togl binaries...\n";
+
+    fi ######################## togl
+
 } ##################### BUILD TF2 JUNGLE INFERNO DEBUG X86 (https://steamdb.info/app/440/depots/?branch=pre_jungleinferno_demos)
 
 ##################################################################################################

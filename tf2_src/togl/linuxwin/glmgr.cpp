@@ -2561,7 +2561,7 @@ GLMContext::GLMContext( IDirect3DDevice9 *pDevice, GLMDisplayParams *params )
 	uint selBytes = selWords * sizeof( uint ); selBytes;
 
 #if defined( USE_SDL )
-	m_ctx = (SDL_GLContext)GetGLContextForWindow( params ? (void*)params->m_focusWindow : NULL );
+	m_ctx = (void *)GetGLContextForWindow( params ? (void*)params->m_focusWindow : NULL );
 	MakeCurrent( true );
 #else
 #error
