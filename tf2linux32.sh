@@ -420,6 +420,7 @@ vpc_projgen()
     # generate additional dependency projects
     #
     echo "Generating additional dependency projects..."
+
     ./vpc_linux /v +bitmap >> $tf2_src/../build.log
     ./vpc_linux /v +choreoobjects >> $tf2_src/../build.log
     ./vpc_linux /v +dmxloader >> $tf2_src/../build.log
@@ -436,6 +437,7 @@ vpc_projgen()
     ./vpc_linux /v +gcsdk >> $tf2_src/../build.log
     ./vpc_linux /v +tier0 >> $tf2_src/../build.log
     ./vpc_linux /v +vstdlib >> $tf2_src/../build.log
+    ./vpc_linux /v +appframework >> $tf2_src/../build.log
 
     echo -e "\nFinished generating projects..."
     echo "Leaving VPC directory..."
