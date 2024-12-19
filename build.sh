@@ -279,7 +279,10 @@ build_tf2()
     ##################################################################################################
     #                                       BUILD GAME binaries
     ##################################################################################################
-    build_client()
+
+    ######################## client
+    #
+    build_client() 
     {
         # entering client dir
         #
@@ -298,7 +301,7 @@ build_tf2()
 
     if [[ "$should_build_client_tf" == "1" ]]; then
 
-        # build client.so
+        # build client binaries
         #
         build_client
 
@@ -306,7 +309,39 @@ build_tf2()
 
         echo -e "\nUser skipped client binaries...\n";
 
-    fi
+    fi ######################## client
+
+    ######################## server
+    #
+    build_server()
+    {
+        # entering server dir
+        #
+        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
+        cd $tf2_src/game/server
+
+        # build server
+        # 
+        echo -e "\nBuilding binaries for server... \n" >> $tf2_src/../build.log
+        make -f server_linux32_tf.mak rebuild >> $tf2_src/../build.log
+    } # build_server()
+
+    clear
+    echo -e "\nBuild server binaries (server.so, tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
+    read -n 1 should_build_server_tf
+
+    if [[ "$should_build_server_tf" == "1" ]]; then
+
+        # build server binaries
+        #
+        build_server
+
+    else
+
+        echo -e "\nUser skipped server binaries...\n";
+
+    fi ######################## client
+
 }
 
 ##################################################################################################
