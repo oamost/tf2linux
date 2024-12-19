@@ -127,7 +127,7 @@
 #endif
 #if defined( LINUX )
 #include <locale.h>
-#include "SDL.h"
+#include "SDL2/SDL.h"
 #endif
 
 #include "ixboxsystem.h"

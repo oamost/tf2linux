@@ -51,6 +51,10 @@ tf2_src/game/client/obj_client_tf_linux32
 tf2_src/game/server/generated_proto_tf
 tf2_src/game/server/obj_server_tf_linux32
 
+# source engine
+#
+tf2_src/engine/obj_engine_linux32
+
 # shared binaries
 #
 out_debug_x86

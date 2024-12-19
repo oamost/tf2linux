@@ -30,7 +30,7 @@
 #include "toolframework/itoolframework.h"
 #include "toolframework/itoolsystem.h"
 #include "tier2/p4helpers.h"
-#include "p4lib/ip4.h"
+
 #include "vgui/ISystem.h"
 #include <vgui_controls/Controls.h>
 
@@ -972,7 +972,7 @@ void DebugDrawLightmapAtCrossHair()
 	IMaterial *pMaterial;
 	int lightmapPageSize[2];
 
-	if( s_CrossHairSurfID <= 0 )
+	if( reinterpret_cast<int>(s_CrossHairSurfID) <= 0 )
 	{
 		return;
 	}

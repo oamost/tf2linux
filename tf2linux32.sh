@@ -342,7 +342,38 @@ build_tf2()
 
     fi ######################## server
 
-}
+    ######################## engine
+    #
+    build_engine()
+    {
+        # entering source engine dir
+        #
+        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
+        cd $tf2_src/engine
+
+        # build source engine
+        # 
+        echo -e "\nBuilding binaries for source engine... \n" >> $tf2_src/../build.log
+        make -f engine_linux32.mak rebuild >> $tf2_src/../build.log
+    } # build_engine()
+
+    clear
+    echo -e "\nBuild source engine binaries (engine.so, source engine) from SRC? (1) To yes, anything else to continue."
+    read -n 1 should_build_source_engine
+
+    if [[ "$should_build_source_engine" == "1" ]]; then
+
+        # build source engine binaries
+        #
+        build_engine
+
+    else
+
+        echo -e "\nUser skipped source engine binaries...\n";
+
+    fi ######################## source engine
+
+} ##################### BUILD TF2 JUNGLE INFERNO DEBUG X86 (https://steamdb.info/app/440/depots/?branch=pre_jungleinferno_demos)
 
 ##################################################################################################
 #                                       VALVE PROJECT GENERATOR (VPC) tool runner (VALVE DEFAULTS)

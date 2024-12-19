@@ -1660,7 +1660,7 @@ struct GLMVertexAttributeDesc			// all the info you need to do vertex setup for 
 				return 1;
 			case GL_SHORT:
 			case GL_UNSIGNED_SHORT:
-			case GL_HALF_FLOAT:
+			case GL_HALF_FLOAT_NV:
 				return 2;
 			case GL_INT:
 			case GL_FLOAT:
