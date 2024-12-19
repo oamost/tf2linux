@@ -909,16 +909,16 @@ LIBFILES = \
     ../../lib/public/linux32/tier3.a \
     ../../lib/public/linux32/gcsdk.a \
     ../../lib/public/linux32/vpklib.a \
-    ../../lib/common/$(CRYPTOPPDIR)/libcrypto.a \
-    ../../lib/common/$(CRYPTOPPDIR)/libcryptopp.a \
+    ../../lib/common/linux32/libcrypto.a \
+    ../../lib/common/linux32/libcryptopp.a \
     -L../../lib/public/linux32 -ltier0 \
     -L../../lib/public/linux32 -lvstdlib \
     -L../../lib/public/linux32 -lsteam_api \
 
 
 LIBFILENAMES = \
-    ../../lib/common/$(CRYPTOPPDIR)/libcrypto.a \
-    ../../lib/common/$(CRYPTOPPDIR)/libcryptopp.a \
+    ../../lib/common/linux32/libcrypto.a \
+    ../../lib/common/linux32/libcryptopp.a \
     ../../lib/common/linux32/replay_common.a \
     ../../lib/public/linux32/choreoobjects.a \
     ../../lib/public/linux32/dmxloader.a \
