@@ -382,38 +382,39 @@ build_tf2()
 
         echo -e "\nUser skipped source engine binaries...\n";
 
-    fi ######################## source engine
+    fi ######################## source engine   
 
-    ######################## launcher-main
+    ######################## togl
     #
-    build_launcher_main()
+    build_togl()
     {
-        # entering launcher-main dir
+        # entering togl dir
         #
         echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
-        cd $tf2_src/launcher_main
+        cd $tf2_src/togl
 
-        # build launcher-main
+        # build togl
         # 
-        echo -e "\nBuilding binaries for launcher_main... \n" >> $tf2_src/../build.log
-        make -f launcher_main_linux32.mak rebuild >> $tf2_src/../build.log
-    } # build_launcher_main()
+        echo -e "\nBuilding binaries for togl... \n" >> $tf2_src/../build.log
+        make -f togl_linux32.mak rebuild >> $tf2_src/../build.log
+        cp $tf2_src/togl/obj_togl_linux32/debug/libtogl.so $tf2_src/lib/public/linux32/libtogl.so
+    } # build_launcher()
 
     clear
-    echo -e "\nBuild launcher-main binaries (shared object) from SRC? (1) To yes, anything else to continue."
-    read -n 1 should_build_launcher_main
+    echo -e "\nBuild togl binaries (shared object) from SRC? (1) To yes, anything else to continue."
+    read -n 1 should_build_togl
 
-    if [[ "$should_build_launcher_main" == "1" ]]; then
+    if [[ "$should_build_togl" == "1" ]]; then
 
-        # build launcher-main binaries
+        # build togl binaries
         #
-        build_launcher_main
+        build_togl
 
     else
 
-        echo -e "\nUser skipped launcher-main binaries...\n";
+        echo -e "\nUser skipped togl binaries...\n";
 
-    fi ######################## launcher-main
+    fi ######################## togl
 
     ######################## launcher
     #
@@ -446,36 +447,37 @@ build_tf2()
 
     fi ######################## launcher
 
-    ######################## togl
+    ######################## launcher-main
     #
-    build_togl()
+    build_launcher_main()
     {
-        # entering togl dir
+        # entering launcher-main dir
         #
         echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
-        cd $tf2_src/togl
+        cd $tf2_src/launcher_main
 
-        # build togl
+        # build launcher-main
         # 
-        echo -e "\nBuilding binaries for togl... \n" >> $tf2_src/../build.log
-        make -f togl_linux32.mak rebuild >> $tf2_src/../build.log
-    } # build_launcher()
+        echo -e "\nBuilding binaries for launcher_main... \n" >> $tf2_src/../build.log
+        make -f launcher_main_linux32.mak rebuild >> $tf2_src/../build.log
+    } # build_launcher_main()
 
     clear
-    echo -e "\nBuild togl binaries (shared object) from SRC? (1) To yes, anything else to continue."
-    read -n 1 should_build_togl
+    echo -e "\nBuild launcher-main binaries (shared object) from SRC? (1) To yes, anything else to continue."
+    read -n 1 should_build_launcher_main
 
-    if [[ "$should_build_togl" == "1" ]]; then
+    if [[ "$should_build_launcher_main" == "1" ]]; then
 
-        # build togl binaries
+        # build launcher-main binaries
         #
-        build_togl
+        build_launcher_main
 
     else
 
-        echo -e "\nUser skipped togl binaries...\n";
+        echo -e "\nUser skipped launcher-main binaries...\n";
 
-    fi ######################## togl
+    fi ######################## launcher-main
+
 
 } ##################### BUILD TF2 JUNGLE INFERNO DEBUG X86 (https://steamdb.info/app/440/depots/?branch=pre_jungleinferno_demos)
 

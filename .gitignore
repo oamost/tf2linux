@@ -59,6 +59,11 @@ tf2_src/engine/obj_engine_linux32
 # togl
 #
 tf2_src/togl/obj_togl_linux32
+tf2_src/lib/public/linux32/libtogl.so
+
+# launcher
+#
+tf2_src/launcher/obj_launcher_linux32
 
 # shared binaries
 #
