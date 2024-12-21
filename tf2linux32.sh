@@ -684,38 +684,46 @@ else
 
 fi # pre_jungle_inferno beta install check
 
-# display warning message
-#
-echo -e "\n################## BUILDING THE GAME: ##################\n"
-echo -e "1.) To start BUILD ALL press (1)\n2.) To RESET SRC, press (2)\n\nWARNING: If you RESET SRC, you will have all Projects regenerated. This is not recommended, as it will 100% break the build on this branch. This is only recommended if you want to start with the original state of the SRC + have all VPC projects generated as originally Valve intended.\n\n"
-read -n 1 should_build_tf
+if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-if [[ "$should_build_tf" == "1" ]]; then
+    build_tf
 
-    # build
+else 
+
+    # display warning message
     #
-    build_tf2
+    echo -e "\n################## BUILDING THE GAME: ##################\n"
+    echo -e "1.) To start BUILD ALL press (1)\n2.) To RESET SRC, press (2)\n\nWARNING: If you RESET SRC, you will have all Projects regenerated. This is not recommended, as it will 100% break the build on this branch. This is only recommended if you want to start with the original state of the SRC + have all VPC projects generated as originally Valve intended.\n\n"
+    read -n 1 should_build_tf
 
-elif [[ "$should_build_tf" == "2" ]]; then
+    if [[ "$should_build_tf" == "1" ]]; then
 
-    # regen?
-    #
-    echo -e "Are you sure? (y/n) \n"
-    read -n 1 user_vpc_regen_projects
+        # build
+        #
+        build_tf2
 
-    if [[ "$user_vpc_regen_projects" == "y" ]]; then
+    elif [[ "$should_build_tf" == "2" ]]; then
 
-        echo -e "\n################## BUILDING VALVE PROJECT GENERATOR: ##################\n"
-        vpc_projgen
+        # regen?
+        #
+        echo -e "Are you sure? (y/n) \n"
+        read -n 1 user_vpc_regen_projects
 
-    else 
+        if [[ "$user_vpc_regen_projects" == "y" ]]; then
 
-        echo "Canceled."
+            echo -e "\n################## BUILDING VALVE PROJECT GENERATOR: ##################\n"
+            vpc_projgen
+
+        else 
+
+            echo "Canceled."
+
+        fi
+
+    else
+
+        echo "Exiting..."
 
     fi
-
-else
-
-    echo "Exiting..."
 
 fi
