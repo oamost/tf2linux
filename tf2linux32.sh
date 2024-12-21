@@ -10,8 +10,9 @@ perform_deep_clean()
     git reset --hard        
 }
 
-clear 
-echo -e "Do you want a deep clean (purging junk from previous build)? (1) To yes, anything else to continue...\n"
+echo -e "\n################## CLEAN ALL? ##################\n"
+
+echo -e "Do you want a deep clean (purging junk from previous build)? (1) To yes, anything else to continue..."
 read -n 1 should_deep_clean
 
 if [[ "$should_deep_clean" == 1 ]]; then
@@ -24,7 +25,7 @@ if [[ "$should_deep_clean" == 1 ]]; then
 
 else 
 
-    echo -e "\nUser skipped deep cleaning..."
+    echo -e "User skipped deep cleaning...\n"
 
 fi
 
@@ -97,8 +98,8 @@ build_tf2()
         echo -e "\ndone.\n" >> $tf2_src/../build.log
 
     }   # build_protobuf()
-
-    clear 
+     
+    echo -e "------------------ GOOGLE PROTOBUF ------------------\n"
     echo -e "\nBuild 3rd party Google Protobuf (2.6.1) from SRC? All tests will run implicitly. See the log for results. (1) To yes, anything else to continue."
     read -n 1 should_build_protobuf
 
@@ -271,7 +272,7 @@ build_tf2()
 
     } # build_libs()
 
-    clear 
+    echo -e "\n------------------ GAME LIBRARIES ------------------\n" 
     echo -e "\nBuild game libraries (mathlib, particles, dmxloader etc.)? (1) to yes, anything else to continue."
     read -n 1 should_build_libs
 
@@ -306,7 +307,7 @@ build_tf2()
         make -f client_linux32_tf.mak rebuild >> $tf2_src/../build.log
     } # build_client()
     
-    clear
+    echo -e "\n------------------ CLIENT ------------------\n"
     echo -e "\nBuild client binaries (client.so, tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
     read -n 1 should_build_client_tf
 
@@ -337,7 +338,7 @@ build_tf2()
         make -f server_linux32_tf.mak rebuild >> $tf2_src/../build.log
     } # build_server()
 
-    clear
+    echo -e "\n------------------ SERVER ------------------\n"
     echo -e "\nBuild server binaries (server.so, tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
     read -n 1 should_build_server_tf
 
@@ -368,7 +369,7 @@ build_tf2()
         make -f engine_linux32.mak rebuild >> $tf2_src/../build.log
     } # build_engine()
 
-    clear
+    echo -e "\n------------------ ENGINE ------------------\n"
     echo -e "\nBuild source engine binaries (engine.so, source engine) from SRC? (1) To yes, anything else to continue."
     read -n 1 should_build_source_engine
 
@@ -400,7 +401,7 @@ build_tf2()
         cp $tf2_src/togl/obj_togl_linux32/debug/libtogl.so $tf2_src/lib/public/linux32/libtogl.so
     } # build_launcher()
 
-    clear
+    echo -e "\n------------------ TOGL ------------------\n"
     echo -e "\nBuild togl binaries (shared object) from SRC? (1) To yes, anything else to continue."
     read -n 1 should_build_togl
 
@@ -431,7 +432,7 @@ build_tf2()
         make -f launcher_linux32.mak rebuild >> $tf2_src/../build.log
     } # build_launcher()
 
-    clear
+    echo -e "\n------------------ LAUNCHER ------------------\n"
     echo -e "\nBuild launcher binaries (shared object) from SRC? (1) To yes, anything else to continue."
     read -n 1 should_build_launcher
 
@@ -447,37 +448,43 @@ build_tf2()
 
     fi ######################## launcher
 
-    ######################## launcher-main
+    ######################## drop build to install location
     #
-    build_launcher_main()
+    drop_build_to_install_location()
     {
-        # entering launcher-main dir
-        #
-        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
-        cd $tf2_src/launcher_main
+        client_build_path="$tf2_src/game/client/obj_client_tf_linux32/debug/client.*"
+        server_build_path="$tf2_src/game/server/obj_server_tf_linux32/debug/server.*"
+        tf_drop_path="$app440/tf/bin"
+        engine_build_path="$tf2_src/engine/obj_engine_linux32/debug/engine.*"
+        engine_drop_path="$app440/bin"
+        launcher_build_path="$tf2_src/launcher/obj_launcher_linux32/debug/launcher.*"
+        launcher_drop_path="$app440/bin"
 
-        # build launcher-main
-        # 
-        echo -e "\nBuilding binaries for launcher_main... \n" >> $tf2_src/../build.log
-        make -f launcher_main_linux32.mak rebuild >> $tf2_src/../build.log
-    } # build_launcher_main()
+        echo -e "Creating backups of installed binaries...\n"
+        
+        mkdir "$tf_drop_path/backup"
+        cp "$tf_drop_path/client.so" "$tf_drop_path/backup/"
+        cp "$tf_drop_path/server.so" "$tf_drop_path/backup/"
+        mkdir "$engine_drop_path/backup"
+        cp "$engine_drop_path/engine.so" "$engine_drop_path/backup/"
+        mkdir "$launcher_drop_path/backup"
+        cp "$launcher_drop_path/launcher.so" "$launcher_drop_path/backup/"
 
-    clear
-    echo -e "\nBuild launcher-main binaries (shared object) from SRC? (1) To yes, anything else to continue."
-    read -n 1 should_build_launcher_main
+        echo -e "...Done.\n Moving build output to targets...\n"
 
-    if [[ "$should_build_launcher_main" == "1" ]]; then
+        cp "$client_build_path" "$tf_drop_path"
+        cp "$server_build_path" "$tf_drop_path"
+        cp "$engine_build_path" "$engine_drop_path"
+        cp "$launcher_build_path" "$launcher_drop_path"
 
-        # build launcher-main binaries
-        #
-        build_launcher_main
+        echo -e "...Done.\n"
 
-    else
+    } # drop_build_to_install_location()
 
-        echo -e "\nUser skipped launcher-main binaries...\n";
+    echo -e "\n------------------ DEBUG BUILD TO INSTALL ------------------\n"
+    echo -e "\nMoving build artifacts to install location..."
 
-    fi ######################## launcher-main
-
+    drop_build_to_install_location # drop build to install location
 
 } ##################### BUILD TF2 JUNGLE INFERNO DEBUG X86 (https://steamdb.info/app/440/depots/?branch=pre_jungleinferno_demos)
 
@@ -553,9 +560,50 @@ vpc_projgen()
 #                                       SCRIPT ENTRY POINT
 ##################################################################################################
 
+# checking pre-conditions
+#
+echo -e "\n################## CHECKING PRE-CONDITIONS: ##################\n"
+
+echo -e "Before continuing, make sure to have the following launch option set for the game in Steam client:\n\n"
+echo -e "./hl2_linux -game tf -insecure -novid -nojoy -nosteamcontroller -nohltv -particles 1 -precachefontchars -noquicktime\n\n"
+
+echo -e "Looking for Team Fortress 2 install location...\n"
+
+app440=$(find ~ /mnt /media /run/media -type d -name "Team Fortress 2" -exec test -f '{}/hl2_linux' \; -print 2>/dev/null)
+
+if [[ "$app440" == "" ]]; then
+
+    echo -e "Game install location not found. Terminating build script.\n"
+
+    exit 
+
+else 
+
+    echo -e "Found game install location at: $app440\n"
+    echo -e "Checking manifest...\n"
+
+    matchflag=$(cat "$app440"/../../appmanifest_440.acf | grep pre_jungleinferno_demos | wc -l)
+
+    if [[ $matchflag == "2" ]]; then
+
+        echo -e "Appversion check passed...\n"
+
+        echo -e "Creating a tf.sh equivalent from hl2.sh (workaround)..."
+        cp "$app440/hl2.sh" "$app440/tf.sh"
+
+    else 
+
+        echo -e "Appversion validation check failed.\n Make sure to download 'Team Fortress 2' via Steam client and opt-into 'pre_jungleinferno_demos' via Betas in the gamesettings.\n Terminating build script...\n"
+
+        exit
+
+    fi
+
+fi # pre_jungle_inferno beta install check
+
 # display warning message
 #
-clear
+echo -e "\n################## BUILDING THE GAME: ##################\n"
 echo -e "1.) To start BUILD ALL press (1)\n2.) To RESET SRC, press (2)\n\nWARNING: If you RESET SRC, you will have all Projects regenerated. This is not recommended, as it will 100% break the build on this branch. This is only recommended if you want to start with the original state of the SRC + have all VPC projects generated as originally Valve intended.\n\n"
 read -n 1 should_build_tf
 
@@ -574,6 +622,7 @@ elif [[ "$should_build_tf" == "2" ]]; then
 
     if [[ "$user_vpc_regen_projects" == "y" ]]; then
 
+        echo -e "\n################## BUILDING VALVE PROJECT GENERATOR: ##################\n"
         vpc_projgen
 
     else 
