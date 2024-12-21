@@ -686,7 +686,7 @@ fi # pre_jungle_inferno beta install check
 
 if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-    build_tf
+    build_tf2
 
 else 
 
