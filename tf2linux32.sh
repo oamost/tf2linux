@@ -73,7 +73,7 @@ build_tf2()
 
         echo "protobuf build completed. running tests. please wait..."
 
-        make check CXXFLAGS="-m32 -w" | grep testsuite\ summary -A7 -i >> $tf2_src/../build.log
+        make check CXXFLAGS="-m32 -D_GLIBCXX_USE_CXX11_ABI=0 -w" | grep testsuite\ summary -A7 -i >> $tf2_src/../build.log
 
         # inform about results
         #
@@ -99,7 +99,7 @@ build_tf2()
 
     }   # build_protobuf()
      
-    echo -e "------------------ GOOGLE PROTOBUF ------------------\n"
+    echo -e "------------------ GOOGLE PROTOBUF  (INSTALLS WITH SUDO) ------------------\n"
     echo -e "\nBuild 3rd party Google Protobuf (2.6.1) from SRC? All tests will run implicitly. See the log for results. (1) To yes, anything else to continue."
     read -n 1 should_build_protobuf
 
