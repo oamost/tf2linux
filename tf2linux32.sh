@@ -1,6 +1,19 @@
 # src root
 #
 tf2_src=$(pwd)/tf2_src
+tf2linux32_build_arg1=""
+
+# full-build argument
+#
+if [[ "$1" == "--yes-to-all" ]]; then
+
+    tf2linux32_build_arg1="1"
+
+    echo -e "WARNING: vpc is not supported in this mode. \n"
+
+else
+    tf2linux32_build_arg1="0"
+fi
 
 # clean repo + init log
 #
@@ -10,30 +23,36 @@ perform_deep_clean()
     git reset --hard        
 }
 
-echo -e "\n################## CLEAN ALL? ##################\n"
+if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-echo -e "Do you want a deep clean (purging junk from previous build)? (1) To yes, anything else to continue..."
-read -n 1 should_deep_clean
-
-if [[ "$should_deep_clean" == 1 ]]; then
-
-    # deep clean
-    #
     perform_deep_clean
 
-    echo -e "Deep cleaning SRC from previous build artifacts: done" >> build.log
+else
 
-else 
+    echo -e "\n################## CLEAN ALL? ##################\n"
 
-    echo -e "User skipped deep cleaning...\n"
+    echo -e "Do you want a deep clean (purging junk from previous build)? (1) To yes, anything else to continue..."
+    read -n 1 should_deep_clean
+
+    if [[ "$should_deep_clean" == 1 ]]; then
+
+        # deep clean
+        #
+        perform_deep_clean
+
+        echo -e "Deep cleaning SRC from previous build artifacts: done" >> build.log
+
+    else 
+
+        echo -e "User skipped deep cleaning...\n"
+
+    fi
 
 fi
 
 echo -e "---------------------------------tf2linux32 build log---------------------------------" > build.log
 date >> build.log
 echo -e "------------------------------------------------------------------------------------\n" >> build.log
-
-
 
 ##################################################################################################
 #                                       BUILD TF2 JUNGLE INFERNO DEBUG X86 (https://steamdb.info/app/440/depots/?branch=pre_jungleinferno_demos)
@@ -98,20 +117,28 @@ build_tf2()
         echo -e "\ndone.\n" >> $tf2_src/../build.log
 
     }   # build_protobuf()
-     
-    echo -e "------------------ GOOGLE PROTOBUF  (INSTALLS WITH SUDO) ------------------\n"
-    echo -e "\nBuild 3rd party Google Protobuf (2.6.1) from SRC? All tests will run implicitly. See the log for results. (1) To yes, anything else to continue."
-    read -n 1 should_build_protobuf
 
-    if [[ "$should_build_protobuf" == "1" ]]; then
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-        # build protobuf
-        #
         build_protobuf
 
     else
+     
+        echo -e "------------------ GOOGLE PROTOBUF  (INSTALLS WITH SUDO) ------------------\n"
+        echo -e "\nBuild 3rd party Google Protobuf (2.6.1) from SRC? All tests will run implicitly. See the log for results. (1) To yes, anything else to continue."
+        read -n 1 should_build_protobuf
 
-        echo -e "\nuser skipped build protobuf...\n";
+        if [[ "$should_build_protobuf" == "1" ]]; then
+
+            # build protobuf
+            #
+            build_protobuf
+
+        else
+
+            echo -e "\nuser skipped build protobuf...\n";
+
+        fi
 
     fi
 
@@ -272,19 +299,27 @@ build_tf2()
 
     } # build_libs()
 
-    echo -e "\n------------------ GAME LIBRARIES ------------------\n" 
-    echo -e "\nBuild game libraries (mathlib, particles, dmxloader etc.)? (1) to yes, anything else to continue."
-    read -n 1 should_build_libs
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-    if [[ "$should_build_libs" == "1" ]]; then
-
-        # build libs
-        #
         build_libs
 
     else
 
-        echo -e "\nUser skipped build game libraries from SRC...\n";
+        echo -e "\n------------------ GAME LIBRARIES ------------------\n" 
+        echo -e "\nBuild game libraries (mathlib, particles, dmxloader etc.)? (1) to yes, anything else to continue."
+        read -n 1 should_build_libs
+
+        if [[ "$should_build_libs" == "1" ]]; then
+
+            # build libs
+            #
+            build_libs
+
+        else
+
+            echo -e "\nUser skipped build game libraries from SRC...\n";
+
+        fi
 
     fi
 
@@ -307,21 +342,29 @@ build_tf2()
         make -f client_linux32_tf.mak rebuild >> $tf2_src/../build.log
     } # build_client()
     
-    echo -e "\n------------------ CLIENT ------------------\n"
-    echo -e "\nBuild client binaries (client.so, tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
-    read -n 1 should_build_client_tf
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-    if [[ "$should_build_client_tf" == "1" ]]; then
-
-        # build client binaries
-        #
         build_client
 
     else
 
-        echo -e "\nUser skipped client binaries...\n";
+        echo -e "\n------------------ CLIENT ------------------\n"
+        echo -e "\nBuild client binaries (client.so, tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
+        read -n 1 should_build_client_tf
 
-    fi ######################## client
+        if [[ "$should_build_client_tf" == "1" ]]; then
+
+            # build client binaries
+            #
+            build_client
+
+        else
+
+            echo -e "\nUser skipped client binaries...\n";
+
+        fi ######################## client
+    
+    fi
 
     ######################## server
     #
@@ -338,21 +381,29 @@ build_tf2()
         make -f server_linux32_tf.mak rebuild >> $tf2_src/../build.log
     } # build_server()
 
-    echo -e "\n------------------ SERVER ------------------\n"
-    echo -e "\nBuild server binaries (server.so, tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
-    read -n 1 should_build_server_tf
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-    if [[ "$should_build_server_tf" == "1" ]]; then
-
-        # build server binaries
-        #
         build_server
 
     else
+    
+        echo -e "\n------------------ SERVER ------------------\n"
+        echo -e "\nBuild server binaries (server.so, tf2, jungle_inferno, debug) from SRC? (1) To yes, anything else to continue."
+        read -n 1 should_build_server_tf
 
-        echo -e "\nUser skipped server binaries...\n";
+        if [[ "$should_build_server_tf" == "1" ]]; then
 
-    fi ######################## server
+            # build server binaries
+            #
+            build_server
+
+        else
+
+            echo -e "\nUser skipped server binaries...\n";
+
+        fi ######################## server
+
+    fi
 
     ######################## source engine
     #
@@ -369,21 +420,29 @@ build_tf2()
         make -f engine_linux32.mak rebuild >> $tf2_src/../build.log
     } # build_engine()
 
-    echo -e "\n------------------ ENGINE ------------------\n"
-    echo -e "\nBuild source engine binaries (engine.so, source engine) from SRC? (1) To yes, anything else to continue."
-    read -n 1 should_build_source_engine
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-    if [[ "$should_build_source_engine" == "1" ]]; then
-
-        # build source engine binaries
-        #
         build_engine
 
     else
 
-        echo -e "\nUser skipped source engine binaries...\n";
+        echo -e "\n------------------ ENGINE ------------------\n"
+        echo -e "\nBuild source engine binaries (engine.so, source engine) from SRC? (1) To yes, anything else to continue."
+        read -n 1 should_build_source_engine
 
-    fi ######################## source engine   
+        if [[ "$should_build_source_engine" == "1" ]]; then
+
+            # build source engine binaries
+            #
+            build_engine
+
+        else
+
+            echo -e "\nUser skipped source engine binaries...\n";
+
+        fi ######################## source engine   
+
+    fi
 
     ######################## togl
     #
@@ -401,21 +460,29 @@ build_tf2()
         cp $tf2_src/togl/obj_togl_linux32/debug/libtogl.so $tf2_src/lib/public/linux32/libtogl.so
     } # build_launcher()
 
-    echo -e "\n------------------ TOGL ------------------\n"
-    echo -e "\nBuild togl binaries (shared object) from SRC? (1) To yes, anything else to continue."
-    read -n 1 should_build_togl
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-    if [[ "$should_build_togl" == "1" ]]; then
-
-        # build togl binaries
-        #
         build_togl
 
     else
 
-        echo -e "\nUser skipped togl binaries...\n";
+        echo -e "\n------------------ TOGL ------------------\n"
+        echo -e "\nBuild togl binaries (shared object) from SRC? (1) To yes, anything else to continue."
+        read -n 1 should_build_togl
 
-    fi ######################## togl
+        if [[ "$should_build_togl" == "1" ]]; then
+
+            # build togl binaries
+            #
+            build_togl
+
+        else
+
+            echo -e "\nUser skipped togl binaries...\n";
+
+        fi ######################## togl
+
+    fi
 
     ######################## launcher
     #
@@ -432,32 +499,40 @@ build_tf2()
         make -f launcher_linux32.mak rebuild >> $tf2_src/../build.log
     } # build_launcher()
 
-    echo -e "\n------------------ LAUNCHER ------------------\n"
-    echo -e "\nBuild launcher binaries (shared object) from SRC? (1) To yes, anything else to continue."
-    read -n 1 should_build_launcher
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-    if [[ "$should_build_launcher" == "1" ]]; then
-
-        # build launcher binaries
-        #
         build_launcher
 
     else
 
-        echo -e "\nUser skipped launcher binaries...\n";
+        echo -e "\n------------------ LAUNCHER ------------------\n"
+        echo -e "\nBuild launcher binaries (shared object) from SRC? (1) To yes, anything else to continue."
+        read -n 1 should_build_launcher
 
-    fi ######################## launcher
+        if [[ "$should_build_launcher" == "1" ]]; then
+
+            # build launcher binaries
+            #
+            build_launcher
+
+        else
+
+            echo -e "\nUser skipped launcher binaries...\n";
+
+        fi ######################## launcher
+
+    fi
 
     ######################## drop build to install location
     #
     drop_build_to_install_location()
     {
-        client_build_path="$tf2_src/game/client/obj_client_tf_linux32/debug/client.*"
-        server_build_path="$tf2_src/game/server/obj_server_tf_linux32/debug/server.*"
+        client_build_path="$tf2_src/game/client/obj_client_tf_linux32/debug/client.{map,so}"
+        server_build_path="$tf2_src/game/server/obj_server_tf_linux32/debug/server.{map,so}"
         tf_drop_path="$app440/tf/bin"
-        engine_build_path="$tf2_src/engine/obj_engine_linux32/debug/engine.*"
+        engine_build_path="$tf2_src/engine/obj_engine_linux32/debug/engine.{map,so}"
         engine_drop_path="$app440/bin"
-        launcher_build_path="$tf2_src/launcher/obj_launcher_linux32/debug/launcher.*"
+        launcher_build_path="$tf2_src/launcher/obj_launcher_linux32/debug/launcher.{map,so}"
         launcher_drop_path="$app440/bin"
 
         echo -e "Creating backups of installed binaries...\n"
@@ -481,10 +556,18 @@ build_tf2()
 
     } # drop_build_to_install_location()
 
-    echo -e "\n------------------ DEBUG BUILD TO INSTALL ------------------\n"
-    echo -e "\nMoving build artifacts to install location..."
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-    drop_build_to_install_location # drop build to install location
+        drop_build_to_install_location
+
+    else
+
+        echo -e "\n------------------ DEBUG BUILD TO INSTALL ------------------\n"
+        echo -e "\nMoving build artifacts to install location..."
+
+        drop_build_to_install_location # drop build to install location
+
+    fi
 
 } ##################### BUILD TF2 JUNGLE INFERNO DEBUG X86 (https://steamdb.info/app/440/depots/?branch=pre_jungleinferno_demos)
 
