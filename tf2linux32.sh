@@ -525,42 +525,42 @@ build_tf2()
 
     ######################## vphysics
     #
-    build_vphysics()
-    {
+    #build_vphysics()
+    #{
         # entering vphysics dir
         #
-        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
-        cd $tf2_src/vphysics
+    #    echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
+    #    cd $tf2_src/vphysics
 
         # build vphysics
         # 
-        echo -e "\nBuilding binaries for vphysics... \n" >> $tf2_src/../build.log
-        make -f vphysics_linux32.mak rebuild >> $tf2_src/../build.log
-    } # build_vphysics()
+    #    echo -e "\nBuilding binaries for vphysics... \n" >> $tf2_src/../build.log
+    #    make -f vphysics_linux32.mak rebuild >> $tf2_src/../build.log
+    #} # build_vphysics()
 
-    if [[ $tf2linux32_build_arg1 == 1 ]]; then
+    #if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-        build_vphysics
+    #    build_vphysics
 
-    else
+    #else
 
-        echo -e "\n------------------ VPHYSICS ------------------\n"
-        echo -e "\nBuild vphysics binaries (shared object) from SRC? (1) To yes, anything else to continue."
-        read -n 1 should_build_vphysics
+        #echo -e "\n------------------ VPHYSICS ------------------\n"
+        #echo -e "\nBuild vphysics binaries (shared object) from SRC? (1) To yes, anything else to continue."
+        #read -n 1 should_build_vphysics
 
-        if [[ "$should_build_vphysics" == "1" ]]; then
+        #if [[ "$should_build_vphysics" == "1" ]]; then
 
             # build vphysics binaries
             #
-            build_vphysics
+       #     build_vphysics
 
-        else
+      #  else
 
-            echo -e "\nUser skipped vphysics binaries...\n";
+     #       echo -e "\nUser skipped vphysics binaries...\n";
 
-        fi ######################## vphysics
+    #    fi ######################## vphysics
 
-    fi
+    # fi
 
     ######################## gameui
     #
@@ -603,47 +603,40 @@ build_tf2()
 
     ######################## drop build to install location
     #
-    drop_build_to_install_location()
+    drop_build_to_target_location()
     {
         client_build_path="$tf2_src/game/client/obj_client_tf_linux32/debug/client.{map,so}"
         server_build_path="$tf2_src/game/server/obj_server_tf_linux32/debug/server.{map,so}"
-        tf_drop_path="$app440/tf/bin"
         engine_build_path="$tf2_src/engine/obj_engine_linux32/debug/engine.{map,so}"
-        engine_drop_path="$app440/bin"
         launcher_build_path="$tf2_src/launcher/obj_launcher_linux32/debug/launcher.{map,so}"
-        launcher_drop_path="$app440/bin"
+        gameui_build_path="$tf2_src/gameui/obj_gameui_linux32/debug/GameUI.{map,so}"
 
         echo -e "Creating backups of installed binaries...\n"
         
-        mkdir -p "$tf_drop_path/backup"
+        mkdir -pv "$tf_drop_path/backup"
         cp "$tf_drop_path/client.so" "$tf_drop_path/backup/"
         cp "$tf_drop_path/server.so" "$tf_drop_path/backup/"
-        mkdir -p "$engine_drop_path/backup"
+        mkdir -pv "$engine_drop_path/backup"
         cp "$engine_drop_path/engine.so" "$engine_drop_path/backup/"
-        mkdir -p "$launcher_drop_path/backup"
+        mkdir -pv "$launcher_drop_path/backup"
         cp "$launcher_drop_path/launcher.so" "$launcher_drop_path/backup/"
 
-        echo -e "...Done.\n Moving build output to targets...\n"
+        # echo -e "...Done.\n Moving build output to target...\n"
 
-        cp "$client_build_path" "$tf_drop_path"
-        cp "$server_build_path" "$tf_drop_path"
-        cp "$engine_build_path" "$engine_drop_path"
-        cp "$launcher_build_path" "$launcher_drop_path"
-
-        echo -e "...Done.\n"
-
-    } # drop_build_to_install_location()
+        # TODO
+        #    
+    } # drop_build_to_target_location()
 
     if [[ $tf2linux32_build_arg1 == 1 ]]; then
 
-        drop_build_to_install_location
+        drop_build_to_target_location
 
     else
 
-        echo -e "\n------------------ DEBUG BUILD TO INSTALL ------------------\n"
-        echo -e "\nMoving build artifacts to install location..."
+        echo -e "\n------------------ DEBUG BUILD TO TARGET ------------------\n"
+        echo -e "\nMoving build artifacts to target location..."
 
-        drop_build_to_install_location # drop build to install location
+        drop_build_to_target_location # drop build to target location
 
     fi
 
