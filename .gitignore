@@ -65,6 +65,14 @@ tf2_src/lib/public/linux32/libtogl.so
 #
 tf2_src/launcher/obj_launcher_linux32
 
+# gameui
+#
+tf2_src/gameui/obj_gameui_linux32
+
+# vphysics
+#
+tf2_src/vphysics/obj_vphysics_linux32
+
 # shared binaries
 #
 out_debug_x86

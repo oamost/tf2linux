@@ -523,6 +523,84 @@ build_tf2()
 
     fi
 
+    ######################## vphysics
+    #
+    build_vphysics()
+    {
+        # entering vphysics dir
+        #
+        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
+        cd $tf2_src/vphysics
+
+        # build vphysics
+        # 
+        echo -e "\nBuilding binaries for vphysics... \n" >> $tf2_src/../build.log
+        make -f vphysics_linux32.mak rebuild >> $tf2_src/../build.log
+    } # build_vphysics()
+
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
+
+        build_vphysics
+
+    else
+
+        echo -e "\n------------------ VPHYSICS ------------------\n"
+        echo -e "\nBuild vphysics binaries (shared object) from SRC? (1) To yes, anything else to continue."
+        read -n 1 should_build_vphysics
+
+        if [[ "$should_build_vphysics" == "1" ]]; then
+
+            # build vphysics binaries
+            #
+            build_vphysics
+
+        else
+
+            echo -e "\nUser skipped vphysics binaries...\n";
+
+        fi ######################## vphysics
+
+    fi
+
+    ######################## gameui
+    #
+    build_gameui()
+    {
+        # entering gameui dir
+        #
+        echo "Build started. You can follow build.log for details. This could take between 5-10 minutes..."
+        cd $tf2_src/gameui
+
+        # build gameui
+        # 
+        echo -e "\nBuilding binaries for gameui... \n" >> $tf2_src/../build.log
+        make -f GameUI_linux32.mak rebuild >> $tf2_src/../build.log
+    } # build_gameui()
+
+    if [[ $tf2linux32_build_arg1 == 1 ]]; then
+
+        build_gameui
+
+    else
+
+        echo -e "\n------------------ GAMEUI ------------------\n"
+        echo -e "\nBuild gameui binaries (shared object) from SRC? (1) To yes, anything else to continue."
+        read -n 1 should_build_gameui
+
+        if [[ "$should_build_gameui" == "1" ]]; then
+
+            # build vphysics binaries
+            #
+            build_gameui
+
+        else
+
+            echo -e "\nUser skipped gameui binaries...\n";
+
+        fi ######################## gameui
+
+    fi
+
     ######################## drop build to install location
     #
     drop_build_to_install_location()
@@ -537,12 +615,12 @@ build_tf2()
 
         echo -e "Creating backups of installed binaries...\n"
         
-        mkdir "$tf_drop_path/backup"
+        mkdir -p "$tf_drop_path/backup"
         cp "$tf_drop_path/client.so" "$tf_drop_path/backup/"
         cp "$tf_drop_path/server.so" "$tf_drop_path/backup/"
-        mkdir "$engine_drop_path/backup"
+        mkdir -p "$engine_drop_path/backup"
         cp "$engine_drop_path/engine.so" "$engine_drop_path/backup/"
-        mkdir "$launcher_drop_path/backup"
+        mkdir -p "$launcher_drop_path/backup"
         cp "$launcher_drop_path/launcher.so" "$launcher_drop_path/backup/"
 
         echo -e "...Done.\n Moving build output to targets...\n"
